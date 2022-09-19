@@ -1,0 +1,461 @@
+{% extends 'app1/base.html' %}
+{% block body %}
+    {% if user.is_authenticated %}
+        {% load static %}
+
+        <style type="text/css">
+            #grad1 {
+                background-color: #9C27B0;
+            }
+
+            #msform {
+                text-align: center;
+                position: relative;
+                margin-top: 20px
+            }
+
+            #msform fieldset .form-card {
+                background: white;
+                border: 0 none;
+                border-radius: 0px;
+                box-shadow: 0 2px 2px 2px rgba(0, 0, 0, 0.2);
+                padding: 20px 40px 30px 40px;
+                box-sizing: border-box;
+                width: 94%;
+                margin: 0 3% 20px 3%;
+                position: relative
+            }
+
+            #msform fieldset {
+                background: #243e54;
+                border: 0 none;
+                border-radius: 0.5rem;
+                box-sizing: border-box;
+                width: 100%;
+                margin: 0;
+                padding-bottom: 20px;
+                position: relative
+            }
+
+            #msform fieldset:not(:first-of-type) {
+                display: none
+            }
+
+            #msform fieldset .form-card {
+                background-color: #243e54;
+                text-align: left;
+                color: #9E9E9E;
+                box-shadow: none !important;
+            }
+
+            #msform input,
+            #msform textarea {
+                padding: 0px 8px 4px 8px;
+                border: none;
+                background-color: #2f516f;
+                border-bottom: 1px solid #ccc;
+                border-radius: 0px;
+                margin-bottom: 25px;
+                margin-top: 2px;
+                width: 100%;
+                box-sizing: border-box;
+                font-family: montserrat;
+                color: black;
+                font-size: 16px;
+                letter-spacing: 1px
+            }
+
+            #msform input:focus,
+            #msform textarea:focus {
+                -moz-box-shadow: none !important;
+                -webkit-box-shadow: none !important;
+                box-shadow: none !important;
+                border: none;
+                font-weight: bold;
+                border-bottom: 2px solid skyblue;
+                outline-width: 0
+            }
+
+            #msform .action-button {
+                width: 100px;
+                background: skyblue;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px
+            }
+
+            #msform .action-button:hover,
+            #msform .action-button:focus {
+                box-shadow: 0 0 0 2px white, 0 0 0 3px skyblue
+            }
+
+            #msform .action-button-previous {
+                width: 100px;
+                background: #616161;
+                font-weight: bold;
+                color: white;
+                border: 0 none;
+                border-radius: 0px;
+                cursor: pointer;
+                padding: 10px 5px;
+                margin: 10px 5px
+            }
+
+            #msform .action-button-previous:hover,
+            #msform .action-button-previous:focus {
+                box-shadow: 0 0 0 2px white, 0 0 0 3px #616161
+            }
+
+            select.list-dt {
+                border: none;
+                outline: 0;
+                border-bottom: 1px solid #ccc;
+                padding: 2px 5px 3px 5px;
+                margin: 2px
+            }
+
+            select.list-dt:focus {
+                border-bottom: 2px solid skyblue
+            }
+
+            .card {
+                z-index: 0;
+                border: none;
+                border-radius: 0.5rem;
+                position: relative
+            }
+
+            .fs-title {
+                font-size: 25px;
+                color: #2C3E50;
+                margin-bottom: 10px;
+                font-weight: bold;
+                text-align: left
+            }
+
+            #progressbar {
+                margin-bottom: 30px;
+                overflow: hidden;
+                color: lightgrey
+            }
+
+            #progressbar .active {
+                color: #2107ff;
+            }
+
+            #progressbar li {
+                list-style-type: none;
+                font-size: 12px;
+                width: 25%;
+                float: left;
+                position: relative
+            }
+
+            #progressbar #account:before {
+                font-family: FontAwesome;
+                content: "\f023"
+            }
+
+            #progressbar #personal:before {
+                font-family: FontAwesome;
+                content: "\f007"
+            }
+
+            #progressbar #payment:before {
+                font-family: FontAwesome;
+                content: "\f09d"
+            }
+
+            #progressbar #confirm:before {
+                font-family: FontAwesome;
+                content: "\f00c"
+            }
+
+            #progressbar li:before {
+                width: 50px;
+                height: 50px;
+                line-height: 45px;
+                display: block;
+                font-size: 18px;
+                color: #ffffff;
+                background: lightgray;
+                border-radius: 50%;
+                margin: 0 auto 10px auto;
+                padding: 2px
+            }
+
+            #progressbar li:after {
+                content: '';
+                width: 100%;
+                height: 2px;
+                background: lightgray;
+                position: absolute;
+                left: 0;
+                top: 25px;
+                z-index: -1
+            }
+
+            #progressbar li.active:before,
+            #progressbar li.active:after {
+                background: #0b29ff;
+            }
+
+        </style>
+        <style>
+            .form-input {
+                width: 300px;
+                padding: 20px;
+                background: #6c7394;;
+            }
+
+            .form-input input {
+                display: none;
+            }
+
+            .form-input label {
+                display: block;
+                width: 100%;
+                height: 50px;
+                line-height: 50px;
+                text-align: center;
+                background: #333;
+                color: #fff;
+                font-size: 15px;
+                font-family: "Open Sans", sans-serif;
+                text-transform: Uppercase;
+                font-weight: 600;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+
+            .form-input img {
+                width: 100%;
+                display: none;
+                margin-top: 10px;
+            }
+        </style>
+        {% for a in item %}
+        <div class="page-content">
+            <div class="card radius-15">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-12 col-xl-12">
+                            <div class="card" style="background-color: #2a4964;">
+                                <div class="row no-gutters">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-8 mt-4 mb-4">
+                                        <center>
+                                            <h5 class="card-title"><h3 style="text-transform:Uppercase;">{{ a.name }}</h3></h5>
+                                        </center>
+                                    </div><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <form action="{% url 'itemedit_page' a.id %}" method="post" class="needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-12 mx-0">
+                                        <div class="row">
+                                            <div class="col-md-6 mt-3">
+                                                <label for="validationCustom01"
+                                                style="color: white;">Type</label>
+                                         <input class="form-control" value="{{ a.item_type }}"
+                                                   style="background-color: #2a4964; color: white;"
+                                                   id="validationCustom01" readonly>
+                                                   
+                                            </div>
+                                            <div class="col-md-6 mt-3">
+                                                <label for="validationCustom03" style="color: white;">Unit
+                                                </label>
+                                                <input value="{{ a.unit }}" class="custom-select" name="unit"
+                                                id="validationCustom04" required
+                                                style="background-color: #2a4964; color: white;" readonly>
+                                               
+                                               
+                                           
+                                        
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="row">
+                                                    <div class="col-md-12 mx-0">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mt-3">
+                                                                <label for="validationCustom05" style="color: white;">HSN
+                                                                    Code</label>
+                                                                    <input type="text" class="form-control" 
+                                                                               style="background-color: #2a4964; color: white;"
+                                                                               id="validationCustom05"
+                                                                            value="{{ a.hsn }}"  readonly>
+                                                            </div>
+                                                            <div class="col-md-6 mt-3">
+                                                                <label for="validationCustom05" name style="color: white;">Tax Reference
+                                                                </label>
+                                                                <input type="text" class="form-control" 
+                                                                style="background-color: #2a4964; color: white;"
+                                                                id="validationCustom05"
+                                                             value="{{ a.tax_reference }}"  readonly>
+                                                           
+                                                            </div>
+                                                           
+                                                        </div>
+                                                       <div class="row">
+                                            <div class="col-md-6 mt-3">
+                                                <label for="validationCustom01"
+                                                       style="color: white;">Purchase Price</label>
+                                                    <div class="row">
+                                                       <div >
+                                                       <input type="text" class="form-control" value="INR"
+                                                        style="margin-left:20px;width:60px;background-color: #2a4960; color: white;"></div>
+                                                       <div >
+                                                       <input type="text" name="pcost" class="form-control"
+                                                       id="purprice" style="width:540px;background-color: #2a4964; color: white;"
+                                                       value="{{ a.purchase_cost }}" readonly>
+                                                       </div>
+                                                    </div>
+
+                                            </div>
+                                            <div class="col-md-6 mt-3">
+                                                <label for="validationCustom01"
+                                                       style="color: white;">Sales Price</label>
+                                                       <div class="row">
+                                                        <div >
+                                                            <input type="text" class="form-control" value="INR"
+                                                             style="margin-left:20px;width:60px;background-color: #2a4960; color: white;"></div>
+                                                            <div >
+                                                        <div >
+                                                       <input type="text" name="salesprice" class="form-control"
+                                                       id="saleprice" style="width:540px;background-color: #2a4964; color: white;"
+                                                       value="{{ a.sales_cost }}" readonly>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12 mx-0">
+                                            <div class="row">
+                                                <div class="col-md-6 mt-3">
+                                                    <label for="validationCustom01"
+                                                           style="color: white;">Account</label>
+                                                           <input name="type" class="form-control" value="{{ a.acount_pur }}"
+                                                           style="background-color: #2a4964; color: white;"
+                                                           id="validationCustom01" value="" readonly>
+                                                
+                                                </div>
+                                                <div class="col-md-6 mt-3">
+                                                    <label for="validationCustom01"
+                                                           style="color: white;">Account</label>
+                                                    <input name="type" class="form-control" value="{{ a.account_sal }}"
+                                                              style="background-color: #2a4964; color: white;"
+                                                              id="validationCustom01" value="" readonly>
+                                                             
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-12 mx-0">
+                                                    <div class="row">
+                                                        <div class="col-md-6 mt-3">
+                                                            <label for="validationCustom01"
+                                                                   style="color: white;">Description</label>
+                                                                   <textarea class="form-control" name="purchaseinfo"
+                                                                   id="validationCustom01" value="{{ a.pur_desc }}" readonly
+                                                                   style="background-color: #2a4964; color: white;"
+                                                                   ></textarea>  
+                                                        </div>
+                                                        <div class="col-md-6 mt-3">
+                                                            <label for="validationCustom01"
+                                                                   style="color: white;">Description</label>
+                                                                   <textarea class="form-control" name="purchaseinfo"
+                                                                   id="validationCustom01"  value="{{ a.sale_desc }}" readonly
+                                                                   style="background-color: #2a4964; color: white;"
+                                                                   ></textarea>
+                                                        </div>
+                                                    </div>
+                                        <div class="row">
+                                            
+                                            <div class="col-md-12 mt-3"><center>
+                                                <label for="validationCustom03"
+                                                       style="color: white;">Tax rate</label><br>
+                                                <input class="custom-select" name="tax"
+                                                        id="tax" readonly value="{{a.tax_rate}}"
+                                                        style=" width:60%;background-color: #2a4964; color: white;">
+                                                  </center>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-md-12 mx-0">
+                                                <div class="row">
+                                                    <div class="col-md-6 mt-3">
+                                                        <label for="validationCustom01"
+                                                               style="color: white;">Intra State Tax Rate</label>
+                                                               <input name="type" class="form-control" 
+                                                               style="background-color: #2a4964; color: white;"
+                                                               id="validationCustom01" value="{{ a.intra_st }}" readonly>
+                                                               
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <label for="validationCustom01"
+                                                               style="color: white;">Inter State Tax Rate</label>
+                                                        <input name="type" class="form-control" 
+                                                                  style="background-color: #2a4964; color: white;"
+                                                                  id="validationCustom01" value="{{ a.inter_st }}" readonly>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6 mt-3">
+                                                       
+                                                    </div>
+                                                   
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3 mt-3">
+                                                        <label for="validationCustom05" name style="color: white;">Active/Inactive
+                                                            </label>
+                                                     
+                                                    </div>
+                                                   
+                                                    <input class="custom-select" name="tax"
+                                                        id="tax" readonly value="{{ a.status }}"
+                                                        style=" width:20%;background-color: #2a4964; color: white;">
+                                                </div>
+                                            </div>
+                                            </div>
+                                       
+                                        <div class="row mt-5 mb-5">
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <button class="btn btn-outline-info rounded-pill w-100 text-light"
+                                                        type="submit">EDIT
+                                                </button>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+             {% endfor %}
+
+       
+    {% endif %}
+
+
+
+{% endblock %}

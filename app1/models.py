@@ -1093,6 +1093,13 @@ class itemtable(models.Model):
     purchase_cost = models.CharField(max_length=100)
     sales_cost = models.CharField(max_length=100)
     tax_rate = models.CharField(max_length=100)
+    acount_pur = models.CharField(max_length=100)
+    account_sal = models.CharField(max_length=100)
+    pur_desc = models.CharField(max_length=100)
+    sale_desc = models.CharField(max_length=100)
+    intra_st = models.CharField(max_length=100)
+    inter_st = models.CharField(max_length=100)
+    status = models.CharField(max_length=100)
 
 class unittable(models.Model):
     unit_symbol = models.CharField(max_length=100)

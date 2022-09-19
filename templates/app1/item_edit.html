@@ -238,6 +238,7 @@
                 margin-top: 10px;
             }
         </style>
+        {% for a in item %}
         <div class="page-content">
             <div class="card radius-15">
                 <div class="card-body">
@@ -248,21 +249,15 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-8 mt-4 mb-4">
                                         <center>
-                                            <h5 class="card-title"><h3> ADD ITEM </h3></h5>
+                                            <h5 class="card-title"><h3 style="text-transform:Uppercase;"> EDIT {{ a.name }} </h3></h5>
                                         </center>
                                     </div><br>
-                                    <!--<div class="col-md-4 mt-4 mb-4">
-                                        <a href="{% url 'goselpan' %}">
-                                            <button class="btn btn-outline-secondary w-50 text-light" type="submit">
-                                                Choose Type
-                                            </button>
-                                        </a>
-                                    </div>-->
+                                   
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <form action="{% url 'create_item' %}" method="post" class="needs-validation" novalidate>
+                    <form action="{% url 'update_item' a.id %}" method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
                         
                         <div class="row">
@@ -275,7 +270,7 @@
                                                        style="color: white;">Name</label>
                                                 <input type="text" name="name" class="form-control" 
                                                           style="background-color: #2a4964; color: white;"
-                                                          id="validationCustom01" autocomplete="off" required>
+                                                          id="validationCustom01" value="{{ a.name }}" autocomplete="off" required>
                                             </div>
                                             <div class="col-md-6 mt-3">
                                                 <label for="validationCustom01"
@@ -283,7 +278,7 @@
                                                 <select name="type" class="form-control" 
                                                           style="background-color: #2a4964; color: white;"
                                                           id="validationCustom01" required>
-                                                          <option >Choose...</option>
+                                                          <option value="{{ a.item_type }}">{{ a.item_type }}</option>
                                                         <option value="goods">Goods</option>
                                                     <option value="services">Services</option></select>
                                             </div>
@@ -300,7 +295,7 @@
                                                                     <select class="custom-select" name="unit"
                                                                             id="validationCustom04" required
                                                                             style="background-color: #2a4964; color: white;">
-                                                                            <option selected disabled value="">Choose...</option>
+                                                                            <option selected disabled value="{{ a.unit }}">{{ a.unit }}</option>
                                                                             {% for a in unit %}
                                                                             <option style="text-transform:Uppercase;">{{ a.unit_symbol}}-{{ a.name }}</option>
                                                                             {% endfor %}
@@ -363,7 +358,7 @@
                                                             <input type="text" name="hsn" class="form-control" 
                                                             pattern="[0-9]{8}" maxlength="8" title=" Maximum 8 digits, characters not allowed"
                                                                        style="background-color: #2a4964; color: white;"
-                                                                       id="validationCustom05"
+                                                                       id="validationCustom05"  value="{{ a.hsn }}"
                                                                        placeholder="Enter a valid HSN code" required>
                                                                 <a href="https://www.cbic.gov.in/resources//htdocs-cbec/gst/goods-rates-booklet-03July2017.pdf"
                                                                    target="_blank" style="font-style: italic"><h6
@@ -389,8 +384,8 @@
                                             <div class="col-md-3">
                                                 <div class="form-check mt-1">
                                                    
-                                                        <input class="form-check-input" name="taxref" type="checkbox" id="inclusive"
-                                                             value="taxable"  >taxable
+                                                        <input class="form-check-input" value="taxable" name="taxref" type="checkbox" id="inclusive"
+                                                               >taxable
                                                         <label style="color: white;">
                                                             </label>
                                                   
@@ -414,7 +409,7 @@
                                                        <input type="text" class="form-control" value="INR"
                                                         style="margin-left:20px;width:60px;background-color: #2a4960; color: white;"></div>
                                                        <div >
-                                                       <input type="text" name="pcost" class="form-control"
+                                                       <input type="text" name="pcost" class="form-control" value="{{ a.purchase_cost }}"
                                                        id="purprice" style="width:540px;background-color: #2a4964; color: white;"
                                                        required>
                                                        </div>
@@ -430,7 +425,7 @@
                                                              style="margin-left:20px;width:60px;background-color: #2a4960; color: white;"></div>
                                                             <div >
                                                         <div >
-                                                       <input type="text" name="salesprice" class="form-control"
+                                                       <input type="text" name="salesprice" class="form-control" value="{{ a.sales_cost }}"
                                                        id="saleprice" style="width:540px;background-color: #2a4964; color: white;"
                                                        required>
                                                         </div>
@@ -447,10 +442,11 @@
                                                            style="color: white;">Account</label>
                                                            <select name="pur_account" class="form-control" 
                                                            style="background-color: #2a4964; color: white;"
-                                                           id="validationCustom01" required>
-                                                           <option >Cost of Goods Sold</option>
+                                                           id="validationCustom01" value="{{ a.acount_pur }}" required>
+                                                           <option value="{{ a.acount_pur }}" >{{ a.acount_pur }}</option>
+                                                           <option value="Cost Of Goods Sold" >Cost Of Goods Sold</option>
                                                            {% for a in acc %}
-                                                           <option value="goods">{{ a.name }}</option>
+                                                           <option value="{{ a.name }}">{{ a.name }}</option>
                                                            {% endfor %}</select>
                                                 </div>
                                                 <div class="col-md-6 mt-3">
@@ -458,10 +454,11 @@
                                                            style="color: white;">Account</label>
                                                     <select name="sale_account" class="form-control" 
                                                               style="background-color: #2a4964; color: white;"
-                                                              id="validationCustom01" required>
-                                                              <option >Sales</option>
+                                                              id="validationCustom01" value="{{ a.account_sal }}" required>
+                                                              <option value="{{ a.account_sal }}">{{ a.account_sal }}</option>
+                                                              <option value="Sales" >Sales</option>
                                                            {% for a in acc1 %}
-                                                           <option value="goods">{{ a.name }}</option>
+                                                           <option value="{{ a.name }}">{{ a.name }}</option>
                                                            {% endfor %}</select>
                                                 </div>
                                             </div>
@@ -472,7 +469,7 @@
                                                             <label for="validationCustom01"
                                                                    style="color: white;">Description</label>
                                                                    <textarea class="form-control" name="pur_desc"
-                                                                   id="validationCustom01" 
+                                                                   id="validationCustom01" value="{{ a.pur_desc }}" 
                                                                    style="background-color: #2a4964; color: white;"
                                                                    ></textarea>  
                                                         </div>
@@ -480,7 +477,7 @@
                                                             <label for="validationCustom01"
                                                                    style="color: white;">Description</label>
                                                                    <textarea class="form-control" name="sale_desc"
-                                                                   id="validationCustom01"
+                                                                   id="validationCustom01" value="{{ a.sale_desc }}"
                                                                    style="background-color: #2a4964; color: white;"
                                                                    ></textarea>
                                                         </div>
@@ -493,7 +490,7 @@
                                                 <select class="custom-select" name="tax"
                                                         id="tax" required
                                                         style=" width:60%;background-color: #2a4964; color: white;">
-                                                    <option selected disabled value=0>Choose...</option>
+                                                    <option selected disabled value="{{ a.tax_rate }}">{{ a.tax_rate }}</option>
                                                     <option value=28>28.0% GST (28%)</option>
                                                     <option value=28>28.0% IGST (28%)</option>
                                                     <option value=18>18.0% GST (18%)</option>
@@ -534,7 +531,7 @@
                                                                <select name="intra_st" class="form-control" 
                                                                style="background-color: #2a4964; color: white;"
                                                                id="validationCustom01" required>
-                                                               <option >Choose...</option>
+                                                               <option value="{{ a.intra_st }}">{{ a.intra_st }}</option>
                                                              <option value="goods">Goods</option>
                                                          <option value="services">Services</option></select>
                                                     </div>
@@ -544,7 +541,7 @@
                                                         <select name="inter_st" class="form-control" 
                                                                   style="background-color: #2a4964; color: white;"
                                                                   id="validationCustom01" required>
-                                                                  <option >Choose...</option>
+                                                                  <option value="{{ a.inter_st }}">{{ a.inter_st }}</option>
                                                                 <option value="goods">Goods</option>
                                                             <option value="services">Services</option></select>
                                                     </div>
@@ -584,7 +581,7 @@
                                             <div class="col-md-4"></div>
                                             <div class="col-md-4">
                                                 <button class="btn btn-outline-info rounded-pill w-100 text-light"
-                                                        type="submit">SUBMIT
+                                                        type="submit">UPDATE
                                                 </button>
                                             </div>
                                             <div class="col-md-4"></div>
@@ -598,7 +595,7 @@
             </div>
         </div>
 
-
+{% endfor %}
 
         <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
         <script>
@@ -720,7 +717,7 @@
                 
 
             });
-            $('#tax').on('change', function () {
+            /*$('#tax').on('change', function () {
                 alert(" INFORMATION \n\n Change saleprice before changing tax.\n Never mind if already done.")
                 tax = parseFloat($('#tax').val());
                 saleprice = parseFloat($('#saleprice').val());

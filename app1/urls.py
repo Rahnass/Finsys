@@ -359,4 +359,11 @@ urlpatterns = [
     re_path(r'^deleteitem/(?P<id>\d+)$', views.deleteitem, name='deleteitem'),
     #re_path(r'^showservices$', views.showservices, name='showservices'),
     re_path(r'^create_unit$', views.create_unit, name='create_unit'),
+    re_path(r'^view_item/(?P<id>\d+)$', views.view_item, name='view_item'),
+    re_path(r'^itemedit_page/(?P<id>\d+)$', views.itemedit_page, name='itemedit_page'),
+    re_path(r'^igoods$', views.igoods, name='igoods'),
+    re_path(r'^iservices$', views.iservices, name='iservices'),
+    re_path(r'^iordername$', views.iordername, name='iordername'),
+    re_path(r'^iodhsn$', views.iodhsn, name='iodhsn'),
+    re_path(r'^update_item/(?P<id>\d+)$', views.update_item, name='update_item'),
 ]

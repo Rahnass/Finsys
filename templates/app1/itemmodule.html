@@ -51,8 +51,8 @@
                                 data-toggle="dropdown">filter by
                         </button>
                         <div class="dropdown-menu" style="background-color: black;">
-                            <a class="dropdown-item" href=""
-                               style="height: 40px; font-size: 15px; color: white;">All</a>
+                            <a class="dropdown-item" href="{% url 'goitem' %}"
+                               style="height: 40px; font-size: 15px; color: white;" >All</a>
                             <a class="dropdown-item" 
                                style="height: 40px; font-size: 15px; color: white;">Active</a>
                             <a class="dropdown-item" 
@@ -61,9 +61,9 @@
                                style="height: 40px; font-size: 15px; color: white;">Purchase</a>
                             <a class="dropdown-item" 
                                style="height: 40px; font-size: 15px; color: white;">Sales</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'iservices' %}"
                                style="height: 40px; font-size: 15px; color: white;">Serives</a>
-                            <a class="dropdown-item"
+                            <a class="dropdown-item" href="{% url 'igoods' %}"
                                style="height: 40px; font-size: 15px; color: white;">Goods</a>
                         </div>
                     </div> 
@@ -75,18 +75,17 @@
                                 data-toggle="dropdown">Sort by
                         </button>
                         <div class="dropdown-menu" style="background-color: black;">
-                            <a class="dropdown-item" href="{{ items.id }}" 
+                            <a class="dropdown-item" href="{% url 'iordername' %}"
                                style="height: 40px; font-size: 15px; color: white;">Name</a>
                             <a class="dropdown-item" 
                                style="height: 40px; font-size: 15px; color: white;">Rate</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'iodhsn' %}"
                                style="height: 40px; font-size: 15px; color: white;">HSN</a>
                             <a class="dropdown-item" 
                                style="height: 40px; font-size: 15px; color: white;">Import item</a>
                             <a class="dropdown-item" 
                                style="height: 40px; font-size: 15px; color: white;">Export item</a>
                         </div>
-                    
                 </div>
             </div>
                 <div class="col">
@@ -102,7 +101,7 @@
                 </div>
               </div>
             <div class="table-responsive">
-                <table class="table table-responsive-md table-hover mt-4">
+                <table class="table table-responsive-md table-hover mt-4" id="tabletobe">
                     <thead>
                     <tr>
                         <th>NAME</th>
@@ -131,11 +130,11 @@
                                                 data-toggle="dropdown">Actions
                                         </button>
                                         <div class="dropdown-menu" style="background-color: white;">
-                                            <a href="editsale/{{ sale.salesrecptsid }}" class="dropdown-item"
+                                            <a href="itemedit_page/{{ a.id }}" class="dropdown-item"
                                                style="color: black; font-size: 15px;">
                                                 <i class="bx bx-edit"><b>EDIT</b></i>
                                             </a>
-                                            <a href="showsales/{{ sale.salesrecptsid }}" class="dropdown-item"
+                                            <a href="view_item/{{ a.id }}" class="dropdown-item"
                                                style="color: black; font-size: 15px;">
                                                 <i class="bx bx-edit"><b>VIEW</b></i>
                                             </a>
@@ -209,6 +208,25 @@
        
      </script>
 
-
+     <script>
+        function namefilter() {
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("namefilt");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("tabletobe");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 {% endblock %}

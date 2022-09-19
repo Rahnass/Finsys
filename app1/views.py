@@ -30,7 +30,9 @@ def go(request):
 
 def add_item(request):
     unit = unittable.objects.all()
-    context = {'unit':unit}
+    acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
+    acc1  = accounts1.objects.filter(acctype='Sales')
+    context = {'unit':unit,'acc':acc,'acc1':acc1}
     return render(request, 'app1/additem.html',context)
 
 def add_unit(request):
@@ -44,23 +46,56 @@ def goitem(request):
 #def showservices(request):
  #   items = itemtable.objects.filter(item_type=services)
   #  context = {'items':items}
-   # return render(request, 'app1/itemmodule.html',context)     
+   # return render(request, 'app1/itemmodule.html',context)  
+def igoods(request):
+    items = itemtable.objects.filter(item_type='goods')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context) 
+
+def iservices(request):
+    items = itemtable.objects.filter(item_type='services')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)    
+
+def iordername(request):
+    items = itemtable.objects.order_by('name')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)      
+
+def iodhsn(request):
+    items = itemtable.objects.order_by('hsn')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)         
 
 def create_item(request):
     if request.method == 'POST':
         iname = request.POST['name']
         itype = request.POST['type']
-        iunit = request.POST['unit']
+        iunit = request.POST.get('unit')
         ihsn = request.POST['hsn']
         itax = request.POST['taxref']
         ipcost = request.POST['pcost']
         iscost = request.POST['salesprice']
         itrate = request.POST['tax']
+        ipuracc = request.POST['pur_account']
+        isalacc = request.POST['sale_account']
+        ipurdesc = request.POST['pur_desc']
+        isaledesc = request.POST['sale_desc']
+        iintra = request.POST['intra_st']
+        iinter = request.POST['inter_st']
+        istatus = request.POST['status']
         item = itemtable(name=iname,item_type=itype,unit=iunit,
                             hsn=ihsn,tax_reference=itax,
                             purchase_cost=ipcost,
                             sales_cost=iscost,
-                            tax_rate=itrate)
+                            tax_rate=itrate,
+                            acount_pur=ipuracc,
+                            account_sal=isalacc,
+                            pur_desc=ipurdesc,
+                            sale_desc=isaledesc,
+                            intra_st=iintra,
+                            inter_st=iinter,
+                            status=istatus)
         item.save()
         return redirect('goitem')
     return render(request,'app1/additem.html')
@@ -83,6 +118,40 @@ def deleteitem(request, id):
     except:
         return redirect('goitem')
 
+def view_item(request,id):
+    item = itemtable.objects.filter(id=id)
+    context = {'item':item}
+    return render(request,'app1/item_view.html',context)
+
+def itemedit_page(request,id):   
+    item = itemtable.objects.filter(id=id)
+    unit = unittable.objects.all()
+    acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
+    acc1  = accounts1.objects.filter(acctype='Sales')
+    context = {'item':item,'unit':unit,'acc':acc,'acc1':acc1}
+    return render(request,'app1/item_edit.html',context) 
+
+def update_item(request, id):
+    if request.method == 'POST':
+        item = itemtable.objects.get(id=id)
+        item.name = request.POST['name']
+        item.item_type = request.POST['type']
+        item.unit = request.POST.get('unit')
+        item.hsn = request.POST['hsn']
+        item.tax_reference = request.POST['taxref']
+        item.purchase_cost = request.POST['pcost']
+        item.sales_cost = request.POST['salesprice']
+        item.tax_rate = request.POST['tax']
+        item.acount_pur = request.POST['pur_account']
+        item.account_sal = request.POST['sale_account']
+        item.pur_desc = request.POST['pur_desc']
+        item.sale_desc = request.POST['sale_desc']
+        item.intra_st = request.POST['intra_st']
+        item.inter_st = request.POST['inter_st']
+        item.status = request.POST['status']
+        item.save()
+        return redirect('itemedit_page',id=id)
+    return render(request,'app1/item_view.html')    
 
 
 
