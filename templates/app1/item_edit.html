@@ -411,7 +411,7 @@
                                                        <div >
                                                        <input type="text" name="pcost" class="form-control" value="{{ a.purchase_cost }}"
                                                        id="purprice" style="width:540px;background-color: #2a4964; color: white;"
-                                                       required>
+                                                       >
                                                        </div>
                                                     </div>
 
@@ -427,7 +427,7 @@
                                                         <div >
                                                        <input type="text" name="salesprice" class="form-control" value="{{ a.sales_cost }}"
                                                        id="saleprice" style="width:540px;background-color: #2a4964; color: white;"
-                                                       required>
+                                                       >
                                                         </div>
                                                     </div>
 
@@ -442,7 +442,7 @@
                                                            style="color: white;">Account</label>
                                                            <select name="pur_account" class="form-control" 
                                                            style="background-color: #2a4964; color: white;"
-                                                           id="validationCustom01" value="{{ a.acount_pur }}" required>
+                                                           id="validationCustom01" value="{{ a.acount_pur }}" >
                                                            <option value="{{ a.acount_pur }}" >{{ a.acount_pur }}</option>
                                                            <option value="Cost Of Goods Sold" >Cost Of Goods Sold</option>
                                                            {% for a in acc %}
@@ -454,7 +454,7 @@
                                                            style="color: white;">Account</label>
                                                     <select name="sale_account" class="form-control" 
                                                               style="background-color: #2a4964; color: white;"
-                                                              id="validationCustom01" value="{{ a.account_sal }}" required>
+                                                              id="validationCustom01" value="{{ a.account_sal }}" >
                                                               <option value="{{ a.account_sal }}">{{ a.account_sal }}</option>
                                                               <option value="Sales" >Sales</option>
                                                            {% for a in acc1 %}
@@ -520,7 +520,47 @@
                                                     <option value=0>Out of Scope(0%)</option>
                                                 </select></center>
                                             </div>
+                                        </div><br>
+                                        <div class="row">
+                                                   
+                                                   
+                                      
+                                            <div class="col-md-3">
+                                                <div class="form-check">
+                                                    <input class="form-check-input" onclick="ShowHideDiv(this)" type="checkbox" checked id="track">
+                                                    <label class="form-check-label" for="track" >
+                                                      Track Inventory
+                                                    </label>
+                                                  </div>
+                                                 
+                                            </div>
+                                        
                                         </div>
+
+                                        <div class="row" id="inventorytrack">
+                                            <div class="col-md-6 mt-3">
+                                                <label for="validationCustom01"
+                                                       style="color: white;">Inventory Account</label>
+                                                       <select name="invacc" class="form-control" 
+                                                          style="background-color: #2a4964; color: white;"
+                                                          id="validationCustom01" required>
+                                                       <option  value="{{ a.inventry }}">{{ a.inventry }}</option>
+                                                       <option value="Inventory Assets">Inventory Assets</option>
+                                                   
+                                            </select>
+                                            </div>
+                                            <div class="col-md-6 mt-3">
+                                                <label for="validationCustom01"
+                                                       style="color: white;">Stock on hand</label>
+                                                       <input type="number" name="stock" value="{{ a.stock }}" class="form-control"
+                                                       style="width:540px;background-color: #2a4964; color: white;"
+                                                       required>
+                                            </div>
+                                        </div>
+                                       
+
+                                    
+                       
                                         
                                         <div class="row">
                                             <div class="col-md-12 mx-0">
@@ -598,26 +638,7 @@
 {% endfor %}
 
         <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
-        <script>
-            $('.single-select').select2({
-                theme: 'bootstrap4',
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                allowClear: Boolean($(this).data('allow-clear')),
-            });
-            $('.multiple-select').select2({
-                theme: 'bootstrap4',
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                allowClear: Boolean($(this).data('allow-clear')),
-            });
-
-            document.getElementById("foo").onchange = function () {
-                if (this.selectedIndex !== 0) {
-                    window.location.href = this.value;
-                }
-            };
-        </script>
+       
         <script>
             function insertValue() {
                 var select = document.getElementById("select"),
@@ -729,16 +750,16 @@
             });
         </script>
 
-        <script>
-            function showPreview(event) {
-                if (event.target.files.length > 0) {
-                    var src = URL.createObjectURL(event.target.files[0]);
-                    var preview = document.getElementById("file-ip-1-preview");
-                    preview.src = src;
-                    preview.style.display = "block";
-                }
+      
+        <script type="text/javascript">
+            function ShowHideDiv(track) {
+                var inventorytrack = document.getElementById("inventorytrack");
+    
+                inventorytrack.style.display = track.checked ? "flex" : "none";
+    
             }
         </script>
+
        
     {% endif %}
 

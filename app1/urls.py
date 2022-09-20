@@ -365,5 +365,12 @@ urlpatterns = [
     re_path(r'^iservices$', views.iservices, name='iservices'),
     re_path(r'^iordername$', views.iordername, name='iordername'),
     re_path(r'^iodhsn$', views.iodhsn, name='iodhsn'),
+    re_path(r'^iactive$', views.iactive, name='iactive'),
+    re_path(r'^inactive$', views.inactive, name='inactive'),
+    re_path(r'^ipurchase$', views.ipurchase, name='ipurchase'),
+    re_path(r'^isales$', views.isales, name='isales'),
     re_path(r'^update_item/(?P<id>\d+)$', views.update_item, name='update_item'),
+    re_path(r'^iod_rate$', views.iod_rate, name='iod_rate'),
+    re_path(r'^iod_import$', views.iod_import, name='iod_import'),
+    re_path(r'^iod_export$', views.iod_export, name='iod_export'),
 ]

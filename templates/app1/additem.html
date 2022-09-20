@@ -416,7 +416,7 @@
                                                        <div >
                                                        <input type="text" name="pcost" class="form-control"
                                                        id="purprice" style="width:540px;background-color: #2a4964; color: white;"
-                                                       required>
+                                                       >
                                                        </div>
                                                     </div>
 
@@ -432,7 +432,7 @@
                                                         <div >
                                                        <input type="text" name="salesprice" class="form-control"
                                                        id="saleprice" style="width:540px;background-color: #2a4964; color: white;"
-                                                       required>
+                                                       >
                                                         </div>
                                                     </div>
 
@@ -447,7 +447,7 @@
                                                            style="color: white;">Account</label>
                                                            <select name="pur_account" class="form-control" 
                                                            style="background-color: #2a4964; color: white;"
-                                                           id="validationCustom01" required>
+                                                           id="validationCustom01" >
                                                            <option >Cost of Goods Sold</option>
                                                            {% for a in acc %}
                                                            <option value="goods">{{ a.name }}</option>
@@ -458,7 +458,7 @@
                                                            style="color: white;">Account</label>
                                                     <select name="sale_account" class="form-control" 
                                                               style="background-color: #2a4964; color: white;"
-                                                              id="validationCustom01" required>
+                                                              id="validationCustom01" >
                                                               <option >Sales</option>
                                                            {% for a in acc1 %}
                                                            <option value="goods">{{ a.name }}</option>
@@ -494,33 +494,33 @@
                                                         id="tax" required
                                                         style=" width:60%;background-color: #2a4964; color: white;">
                                                     <option selected disabled value=0>Choose...</option>
-                                                    <option value=28>28.0% GST (28%)</option>
-                                                    <option value=28>28.0% IGST (28%)</option>
-                                                    <option value=18>18.0% GST (18%)</option>
-                                                    <option value=18>18.0% IGST (18%)</option>
-                                                    <option value=15>15.0% ST (100%)</option>
-                                                    <option value=14.5>14.5% ST (100%)</option>
-                                                    <option value=14>14.00% ST (100%)</option>
-                                                    <option value=14>14.0% VAT (100%)</option>
-                                                    <option value=12.36>12.36% ST (100%)</option>
-                                                    <option value=12>12.0% GST (12%)</option>
-                                                    <option value=12>12.0% IGST (12%)</option>
-                                                    <option value=6>6.0% GST (6%)</option>
-                                                    <option value=6>6.0% IGST (6%)</option>
-                                                    <option value=5>5.0% GST (5%)</option>
-                                                    <option value=5>5.0% IGST (5%)</option>
-                                                    <option value=5>5.0% VAT (100%)</option>
-                                                    <option value=4>4.0% VAT (100%)</option>
-                                                    <option value=3>3.0% GST (3%)</option>
-                                                    <option value=3>3.0% IGST (3%)</option>
-                                                    <option value=2>2.0% CST (100%)</option>
-                                                    <option value=0.25>0.25% GST (0.25%)</option>
-                                                    <option value=0.25>0.25% IGST (0.25%)</option>
-                                                    <option value=0>0% GST (0%)</option>
-                                                    <option value=0>0% IGST (0%)</option>
-                                                    <option value=0>Exempt GST (0%)</option>
-                                                    <option value=0>Exempt IGST (0%)</option>
-                                                    <option value=0>Out of Scope(0%)</option>
+                                                    <option value="28.0% GST ">28.0% GST (28%)</option>
+                                                    <option value="28.0% IGST ">28.0% IGST (28%)</option>
+                                                    <option value="18.0% GST">18.0% GST (18%)</option>
+                                                    <option value="18.0% IGST">18.0% IGST (18%)</option>
+                                                    <option value="15.0% ST">15.0% ST (100%)</option>
+                                                    <option value="14.5% ST">14.5% ST (100%)</option>
+                                                    <option value="14.00% ST">14.00% ST (100%)</option>
+                                                    <option value="14.0% VAT">14.0% VAT (100%)</option>
+                                                    <option value="12.36% ST">12.36% ST (100%)</option>
+                                                    <option value="12.0% GST">12.0% GST (12%)</option>
+                                                    <option value="12.0% IGST">12.0% IGST (12%)</option>
+                                                    <option value="6.0% GST">6.0% GST (6%)</option>
+                                                    <option value="6.0% IGST">6.0% IGST (6%)</option>
+                                                    <option value="5.0% GST">5.0% GST (5%)</option>
+                                                    <option value="5.0% GST">5.0% IGST (5%)</option>
+                                                    <option value="5.0% VAT">5.0% VAT (100%)</option>
+                                                    <option value="4.0% VAT">4.0% VAT (100%)</option>
+                                                    <option value="3.0% GST">3.0% GST (3%)</option>
+                                                    <option value="3.0% IGST">3.0% IGST (3%)</option>
+                                                    <option value="2.0% CST">2.0% CST (100%)</option>
+                                                    <option value="0.25% GST">0.25% GST (0.25%)</option>
+                                                    <option value="0.25%">0.25% IGST (0.25%)</option>
+                                                    <option value="0% GST">0% GST (0%)</option>
+                                                    <option value="0% IGST">0% IGST (0%)</option>
+                                                    <option value="Exempt GST">Exempt GST (0%)</option>
+                                                    <option value="Exempt IGST">Exempt IGST (0%)</option>
+                                                    <option value="Out of Scope">Out of Scope(0%)</option>
                                                 </select></center>
                                             </div>
                                         </div>
@@ -535,9 +535,15 @@
                                                                style="background-color: #2a4964; color: white;"
                                                                id="validationCustom01" required>
                                                                <option >Choose...</option>
-                                                             <option value="goods">Goods</option>
-                                                         <option value="services">Services</option></select>
+                                                               <option value=0>GST 0 (0%)</option>
+                                                               <option value=5>GST 5 (5%)</option>
+                                                               <option value=12>GST 12 (12%)</option>
+                                                               <option value=18>GST 18 (18%)</option>
+                                                               <option value=28>GST 28 (28%)</option>
+                                                               <option value=0>Out of Scope(0%)</option>
+                                                    </select>
                                                     </div>
+                                                
                                                     <div class="col-md-6 mt-3">
                                                         <label for="validationCustom01"
                                                                style="color: white;">Inter State Tax Rate</label>
@@ -545,10 +551,55 @@
                                                                   style="background-color: #2a4964; color: white;"
                                                                   id="validationCustom01" required>
                                                                   <option >Choose...</option>
-                                                                <option value="goods">Goods</option>
-                                                            <option value="services">Services</option></select>
+                                                                  <option value=0>IGST 0 (0%)</option>
+                                                               <option value=5>IGST 5 (5%)</option>
+                                                               <option value=12>IGST 12 (12%)</option>
+                                                               <option value=18>IGST 18 (18%)</option>
+                                                               <option value=28>IGST 28 (28%)</option>
+                                                               <option value=0>Out of Scope(0%)</option>
+                                                    </select>
+                                                    </div>
+                                                </div><br>
+                                                <div class="row">
+                                                   
+                                                   
+                                      
+                                                    <div class="col-md-3">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" onclick="ShowHideDiv(this)" type="checkbox" checked id="track">
+                                                            <label class="form-check-label" for="track" >
+                                                              Track Inventory
+                                                            </label>
+                                                          </div>
+                                                         
+                                                    </div>
+                                                
+                                                </div>
+
+                                                <div class="row" id="inventorytrack">
+                                                    <div class="col-md-6 mt-3">
+                                                        <label for="validationCustom01"
+                                                               style="color: white;">Inventory Account</label>
+                                                               <select name="invacc" class="form-control" 
+                                                                  style="background-color: #2a4964; color: white;"
+                                                                  id="validationCustom01" required>
+                                                               <option >Choose...</option>
+                                                               <option value="Inventory Assets">Inventory Assets</option>
+                                                           
+                                                    </select>
+                                                    </div>
+                                                    <div class="col-md-6 mt-3">
+                                                        <label for="validationCustom01"
+                                                               style="color: white;">Stock on hand</label>
+                                                               <input type="number" name="stock" class="form-control"
+                                                               style="width:540px;background-color: #2a4964; color: white;"
+                                                               required>
                                                     </div>
                                                 </div>
+                                               
+
+                                            
+                               
                                                 <div class="row">
                                                     <div class="col-md-6 mt-3">
                                                        
@@ -581,7 +632,12 @@
                                             </div>
                                        
                                         <div class="row mt-5 mb-5">
-                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4">
+                                                <a href="{% url 'goitem' %}"class="btn btn-outline-info rounded-pill w-25 text-light"
+                                                >
+                                                BACK
+                                             </a>
+                                            </div>
                                             <div class="col-md-4">
                                                 <button class="btn btn-outline-info rounded-pill w-100 text-light"
                                                         type="submit">SUBMIT
@@ -601,26 +657,7 @@
 
 
         <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
-        <script>
-            $('.single-select').select2({
-                theme: 'bootstrap4',
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                allowClear: Boolean($(this).data('allow-clear')),
-            });
-            $('.multiple-select').select2({
-                theme: 'bootstrap4',
-                width: $(this).data('width') ? $(this).data('width') : $(this).hasClass('w-100') ? '100%' : 'style',
-                placeholder: $(this).data('placeholder'),
-                allowClear: Boolean($(this).data('allow-clear')),
-            });
-
-            document.getElementById("foo").onchange = function () {
-                if (this.selectedIndex !== 0) {
-                    window.location.href = this.value;
-                }
-            };
-        </script>
+        
         <script>
             function insertValue() {
                 var select = document.getElementById("select"),
@@ -720,7 +757,7 @@
                 
 
             });
-            $('#tax').on('change', function () {
+            /*$('#tax').on('change', function () {
                 alert(" INFORMATION \n\n Change saleprice before changing tax.\n Never mind if already done.")
                 tax = parseFloat($('#tax').val());
                 saleprice = parseFloat($('#saleprice').val());
@@ -731,28 +768,18 @@
                 }
             });
         </script>
-
-        <script>
-            function showPreview(event) {
-                if (event.target.files.length > 0) {
-                    var src = URL.createObjectURL(event.target.files[0]);
-                    var preview = document.getElementById("file-ip-1-preview");
-                    preview.src = src;
-                    preview.style.display = "block";
-                }
+        <script type="text/javascript">
+            function ShowHideDiv(track) {
+                var inventorytrack = document.getElementById("inventorytrack");
+    
+                inventorytrack.style.display = track.checked ? "flex" : "none";
+    
             }
         </script>
+
        
     {% endif %}
 
-
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
 
 
 

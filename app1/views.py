@@ -40,13 +40,20 @@ def add_unit(request):
 
 def goitem(request):
     items = itemtable.objects.all()
-    context = {'items':items}
+    inv = inventory.objects.all()
+    context = {'items':items,'inv':inv}
     return render(request, 'app1/itemmodule.html',context)  
 
-#def showservices(request):
- #   items = itemtable.objects.filter(item_type=services)
-  #  context = {'items':items}
-   # return render(request, 'app1/itemmodule.html',context)  
+def iactive(request):
+    items = itemtable.objects.filter(status='Active')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context) 
+    
+def inactive(request):
+    items = itemtable.objects.filter(status='Inactive')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)     
+ 
 def igoods(request):
     items = itemtable.objects.filter(item_type='goods')
     context = {'items':items}
@@ -57,6 +64,16 @@ def iservices(request):
     context = {'items':items}
     return render(request, 'app1/itemmodule.html',context)    
 
+def ipurchase(request):
+    items = itemtable.objects.filter(sales_cost='')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)     
+
+def isales(request):
+    items = itemtable.objects.filter(purchase_cost='')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)         
+
 def iordername(request):
     items = itemtable.objects.order_by('name')
     context = {'items':items}
@@ -66,6 +83,21 @@ def iodhsn(request):
     items = itemtable.objects.order_by('hsn')
     context = {'items':items}
     return render(request, 'app1/itemmodule.html',context)         
+
+def iod_rate(request):
+    items = itemtable.objects.order_by('tax_rate')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)  
+
+def iod_import(request):
+    items = itemtable.objects.exclude(purchase_cost=' ')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)  
+
+def iod_export(request):
+    items = itemtable.objects.exclude(sales_cost=' ')
+    context = {'items':items}
+    return render(request, 'app1/itemmodule.html',context)              
 
 def create_item(request):
     if request.method == 'POST':
@@ -83,6 +115,8 @@ def create_item(request):
         isaledesc = request.POST['sale_desc']
         iintra = request.POST['intra_st']
         iinter = request.POST['inter_st']
+        iinv = request.POST['invacc']
+        istock = request.POST['stock']
         istatus = request.POST['status']
         item = itemtable(name=iname,item_type=itype,unit=iunit,
                             hsn=ihsn,tax_reference=itax,
@@ -95,6 +129,8 @@ def create_item(request):
                             sale_desc=isaledesc,
                             intra_st=iintra,
                             inter_st=iinter,
+                            inventry=iinv,
+                            stock=istock,
                             status=istatus)
         item.save()
         return redirect('goitem')
@@ -134,23 +170,25 @@ def itemedit_page(request,id):
 def update_item(request, id):
     if request.method == 'POST':
         item = itemtable.objects.get(id=id)
-        item.name = request.POST['name']
-        item.item_type = request.POST['type']
+        item.name = request.POST.get('name')
+        item.item_type = request.POST.get('type')
         item.unit = request.POST.get('unit')
-        item.hsn = request.POST['hsn']
-        item.tax_reference = request.POST['taxref']
-        item.purchase_cost = request.POST['pcost']
-        item.sales_cost = request.POST['salesprice']
-        item.tax_rate = request.POST['tax']
-        item.acount_pur = request.POST['pur_account']
-        item.account_sal = request.POST['sale_account']
-        item.pur_desc = request.POST['pur_desc']
-        item.sale_desc = request.POST['sale_desc']
-        item.intra_st = request.POST['intra_st']
-        item.inter_st = request.POST['inter_st']
-        item.status = request.POST['status']
+        item.hsn = request.POST.get('hsn')
+        item.tax_reference = request.POST.get('taxref')
+        item.purchase_cost = request.POST.get('pcost')
+        item.sales_cost = request.POST.get('salesprice')
+        item.tax_rate = request.POST.get('tax')
+        item.acount_pur = request.POST.get('pur_account')
+        item.account_sal = request.POST.get('sale_account')
+        item.pur_desc = request.POST.get('pur_desc')
+        item.sale_desc = request.POST.get('sale_desc')
+        item.intra_st = request.POST.get('intra_st')
+        item.inter_st = request.POST.get('inter_st')
+        item.inventry = request.POST.get('invacc')
+        item.stock = request.POST.get('stock')
+        item.status = request.POST.get('status')
         item.save()
-        return redirect('itemedit_page',id=id)
+        return redirect('goitem')
     return render(request,'app1/item_view.html')    
 
 

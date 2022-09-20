@@ -35,7 +35,7 @@
                               
                                  <ul id="searchList" class="one radius-15" style="background-color: #213b52;">
                                     {% for a in items %}
-                                  <li><a href="#">{{ a.name }}</a></li>
+                                    <a href="view_item/{{ a.id }}"><li>{{ a.name }}</li></a>
                                   {% endfor %}
                              
                                  </ul>
@@ -53,13 +53,13 @@
                         <div class="dropdown-menu" style="background-color: black;">
                             <a class="dropdown-item" href="{% url 'goitem' %}"
                                style="height: 40px; font-size: 15px; color: white;" >All</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'iactive' %}"
                                style="height: 40px; font-size: 15px; color: white;">Active</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'inactive' %}"
                                style="height: 40px; font-size: 15px; color: white;">Inactive</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'ipurchase' %}"
                                style="height: 40px; font-size: 15px; color: white;">Purchase</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'isales' %}"
                                style="height: 40px; font-size: 15px; color: white;">Sales</a>
                             <a class="dropdown-item" href="{% url 'iservices' %}"
                                style="height: 40px; font-size: 15px; color: white;">Serives</a>
@@ -77,13 +77,13 @@
                         <div class="dropdown-menu" style="background-color: black;">
                             <a class="dropdown-item" href="{% url 'iordername' %}"
                                style="height: 40px; font-size: 15px; color: white;">Name</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'iod_rate' %}"
                                style="height: 40px; font-size: 15px; color: white;">Rate</a>
                             <a class="dropdown-item" href="{% url 'iodhsn' %}"
                                style="height: 40px; font-size: 15px; color: white;">HSN</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'iod_import' %}"
                                style="height: 40px; font-size: 15px; color: white;">Import item</a>
-                            <a class="dropdown-item" 
+                            <a class="dropdown-item" href="{% url 'iod_export' %}"
                                style="height: 40px; font-size: 15px; color: white;">Export item</a>
                         </div>
                 </div>
@@ -111,12 +111,12 @@
                         <th>PURCHASE COST</th>
                         <th>SALES COST</th>
                         <th>TAX</th>
-                        <th>ACTION</th>
+                        <th>STOCK</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for a in items %}
-                            <tr>
+                <tr class='clickable-row' data-href="view_item/{{ a.id }}" >
                                 <td>{{ a.name }}</td>
                                 <td>{{ a.item_type }}</td>
                                 <td>{{ a.unit }}</td>
@@ -124,8 +124,9 @@
                                 <td>{{ a.purchase_cost }}</td>
                                 <td>{{ a.sales_cost }}</td>
                                 <td>{{ a.tax_rate }}</td>
-                                <td>
-                                    <div class="dropdown">
+                                <td>{{ a.stock }}
+                                        
+                                    <!--<div class="dropdown">
                                         <button type="button" class="btn btn-outline-info dropdown-toggle text-grey"
                                                 data-toggle="dropdown">Actions
                                         </button>
@@ -138,14 +139,11 @@
                                                style="color: black; font-size: 15px;">
                                                 <i class="bx bx-edit"><b>VIEW</b></i>
                                             </a>
-                                            <a href="deleteitem/{{ a.id }}" class="dropdown-item"
-                                               style="color: black; font-size: 15px;">
-                                                <i class="bx bx-trash"><b>DELETE</b></i>
-                                            </a>
+                                            
                                         </div>
-                                    </div>
+                                    </div>-->
 
-                                </td>
+                                </td></a>
                             </tr>
                      
                     {% endfor %}
@@ -159,6 +157,13 @@
         </div>
     </div>
 </div>
+<script>
+    jQuery(document).ready(function($) {
+        $(".clickable-row").click(function() {
+            window.location = $(this).data("href");
+        });
+    });
+</script>
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");

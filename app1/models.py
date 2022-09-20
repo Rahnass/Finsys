@@ -1099,6 +1099,8 @@ class itemtable(models.Model):
     sale_desc = models.CharField(max_length=100)
     intra_st = models.CharField(max_length=100)
     inter_st = models.CharField(max_length=100)
+    inventry = models.CharField(max_length=100)
+    stock = models.CharField(max_length=100)
     status = models.CharField(max_length=100)
 
 class unittable(models.Model):
