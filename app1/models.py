@@ -1085,6 +1085,7 @@ class customize(models.Model):
     selected = models.CharField(max_length=255, default='', blank=True)
 
 class itemtable(models.Model):
+    cid = models.ForeignKey(company, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
     item_type = models.CharField(max_length=100)
     unit = models.CharField(max_length=100)
@@ -1104,6 +1105,7 @@ class itemtable(models.Model):
     status = models.CharField(max_length=100)
 
 class unittable(models.Model):
+    cid = models.ForeignKey(company, on_delete=models.CASCADE)
     unit_symbol = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
 

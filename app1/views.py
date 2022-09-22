@@ -28,170 +28,6 @@ def something(request):
 def go(request):
     return render(request, 'app1/login.html')
 
-def add_item(request):
-    unit = unittable.objects.all()
-    acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
-    acc1  = accounts1.objects.filter(acctype='Sales')
-    context = {'unit':unit,'acc':acc,'acc1':acc1}
-    return render(request, 'app1/additem.html',context)
-
-def add_unit(request):
-    return render(request, 'app1/unitcreation.html')    
-
-def goitem(request):
-    items = itemtable.objects.all()
-    inv = inventory.objects.all()
-    context = {'items':items,'inv':inv}
-    return render(request, 'app1/itemmodule.html',context)  
-
-def iactive(request):
-    items = itemtable.objects.filter(status='Active')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context) 
-    
-def inactive(request):
-    items = itemtable.objects.filter(status='Inactive')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)     
- 
-def igoods(request):
-    items = itemtable.objects.filter(item_type='goods')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context) 
-
-def iservices(request):
-    items = itemtable.objects.filter(item_type='services')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)    
-
-def ipurchase(request):
-    items = itemtable.objects.filter(sales_cost='')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)     
-
-def isales(request):
-    items = itemtable.objects.filter(purchase_cost='')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)         
-
-def iordername(request):
-    items = itemtable.objects.order_by('name')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)      
-
-def iodhsn(request):
-    items = itemtable.objects.order_by('hsn')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)         
-
-def iod_rate(request):
-    items = itemtable.objects.order_by('tax_rate')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)  
-
-def iod_import(request):
-    items = itemtable.objects.exclude(purchase_cost=' ')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)  
-
-def iod_export(request):
-    items = itemtable.objects.exclude(sales_cost=' ')
-    context = {'items':items}
-    return render(request, 'app1/itemmodule.html',context)              
-
-def create_item(request):
-    if request.method == 'POST':
-        iname = request.POST['name']
-        itype = request.POST['type']
-        iunit = request.POST.get('unit')
-        ihsn = request.POST['hsn']
-        itax = request.POST['taxref']
-        ipcost = request.POST['pcost']
-        iscost = request.POST['salesprice']
-        itrate = request.POST['tax']
-        ipuracc = request.POST['pur_account']
-        isalacc = request.POST['sale_account']
-        ipurdesc = request.POST['pur_desc']
-        isaledesc = request.POST['sale_desc']
-        iintra = request.POST['intra_st']
-        iinter = request.POST['inter_st']
-        iinv = request.POST['invacc']
-        istock = request.POST['stock']
-        istatus = request.POST['status']
-        item = itemtable(name=iname,item_type=itype,unit=iunit,
-                            hsn=ihsn,tax_reference=itax,
-                            purchase_cost=ipcost,
-                            sales_cost=iscost,
-                            tax_rate=itrate,
-                            acount_pur=ipuracc,
-                            account_sal=isalacc,
-                            pur_desc=ipurdesc,
-                            sale_desc=isaledesc,
-                            intra_st=iintra,
-                            inter_st=iinter,
-                            inventry=iinv,
-                            stock=istock,
-                            status=istatus)
-        item.save()
-        return redirect('goitem')
-    return render(request,'app1/additem.html')
-
-def create_unit(request):
-    if request.method == 'POST':
-        usymbol = request.POST['usymbol']
-        uname = request.POST['uname']
-        unit = unittable(unit_symbol=usymbol,name=uname)
-        unit.save()
-        return redirect('add_item')
-    return render(request,'app1/unitcreation.html')    
-    
-
-def deleteitem(request, id):
-    try:
-        sl = itemtable.objects.get(id=id)
-        sl.delete()
-        return redirect('goitem')
-    except:
-        return redirect('goitem')
-
-def view_item(request,id):
-    item = itemtable.objects.filter(id=id)
-    context = {'item':item}
-    return render(request,'app1/item_view.html',context)
-
-def itemedit_page(request,id):   
-    item = itemtable.objects.filter(id=id)
-    unit = unittable.objects.all()
-    acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
-    acc1  = accounts1.objects.filter(acctype='Sales')
-    context = {'item':item,'unit':unit,'acc':acc,'acc1':acc1}
-    return render(request,'app1/item_edit.html',context) 
-
-def update_item(request, id):
-    if request.method == 'POST':
-        item = itemtable.objects.get(id=id)
-        item.name = request.POST.get('name')
-        item.item_type = request.POST.get('type')
-        item.unit = request.POST.get('unit')
-        item.hsn = request.POST.get('hsn')
-        item.tax_reference = request.POST.get('taxref')
-        item.purchase_cost = request.POST.get('pcost')
-        item.sales_cost = request.POST.get('salesprice')
-        item.tax_rate = request.POST.get('tax')
-        item.acount_pur = request.POST.get('pur_account')
-        item.account_sal = request.POST.get('sale_account')
-        item.pur_desc = request.POST.get('pur_desc')
-        item.sale_desc = request.POST.get('sale_desc')
-        item.intra_st = request.POST.get('intra_st')
-        item.inter_st = request.POST.get('inter_st')
-        item.inventry = request.POST.get('invacc')
-        item.stock = request.POST.get('stock')
-        item.status = request.POST.get('status')
-        item.save()
-        return redirect('goitem')
-    return render(request,'app1/item_view.html')    
-
-
 
 def create(request):
     try:
@@ -25768,4 +25604,258 @@ def deletestyle(request, customizeid):
         return redirect('customstyle')
     except:
         return redirect('customstyle')
+
+
+
+
+@login_required(login_url='regcomp')
+def add_item(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        unit = unittable.objects.all()
+        acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
+        acc1  = accounts1.objects.filter(acctype='Sales')
+        context = {'unit':unit,'acc':acc,'acc1':acc1,'cmp1': cmp1}
+        return render(request, 'app1/additem.html',context)
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def add_unit(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        return render(request, 'app1/unitcreation.html',{'cmp1': cmp1})    
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def goitem(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.filter(cid=cmp1)
+        context = {'items':items,'cmp1':cmp1}
+        return render(request, 'app1/itemmodule.html',context)  
+    except:
+        return redirect('goitem')
+
+def iactive(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.filter(status='Active')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context) 
+    except:
+        return redirect('goitem')
+
+def inactive(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.filter(status='Inactive')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)     
+    except:
+        return redirect('goitem')
+
+def igoods(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.filter(item_type='goods')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context) 
+    except:
+        return redirect('goitem')
+
+def iservices(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.filter(item_type='services')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)    
+    except:
+        return redirect('goitem') 
+
+def ipurchase(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.exclude(purchase_cost='')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)     
+    except:
+        return redirect('goitem')
+
+def isales(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.exclude(sales_cost='')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)         
+    except:
+        return redirect('goitem')
+
+def iordername(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.order_by('name')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)      
+    except:
+        return redirect('goitem')
+
+def iodhsn(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.order_by('hsn')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)         
+    except:
+        return redirect('goitem')
+
+def iod_rate(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.order_by('tax_rate')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)  
+    except:
+        return redirect('goitem')
+
+def iod_import(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.order_by('purchase_cost')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)  
+    except:
+        return redirect('goitem')
+
+def iod_export(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        items = itemtable.objects.order_by('sales_cost')
+        context = {'items':items,'cmp1': cmp1}
+        return render(request, 'app1/itemmodule.html',context)              
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def create_item(request):
+    try:
+        if request.method == 'POST':
+            cmp1 = company.objects.get(id=request.session['uid'])
+            iname = request.POST['name']
+            itype = request.POST['type']
+            iunit = request.POST.get('unit')
+            ihsn = request.POST['hsn']
+            itax = request.POST['taxref']
+            ipcost = request.POST['pcost']
+            iscost = request.POST['salesprice']
+            itrate = request.POST['tax']
+            ipuracc = request.POST['pur_account']
+            isalacc = request.POST['sale_account']
+            ipurdesc = request.POST['pur_desc']
+            isaledesc = request.POST['sale_desc']
+            iintra = request.POST['intra_st']
+            iinter = request.POST['inter_st']
+            iinv = request.POST['invacc']
+            istock = request.POST['stock']
+            istatus = request.POST['status']
+            item = itemtable(name=iname,item_type=itype,unit=iunit,
+                                hsn=ihsn,tax_reference=itax,
+                                purchase_cost=ipcost,
+                                sales_cost=iscost,
+                                tax_rate=itrate,
+                                acount_pur=ipuracc,
+                                account_sal=isalacc,
+                                pur_desc=ipurdesc,
+                                sale_desc=isaledesc,
+                                intra_st=iintra,
+                                inter_st=iinter,
+                                inventry=iinv,
+                                stock=istock,
+                                status=istatus,
+                                cid=cmp1)
+            item.save()
+            return redirect('goitem')
+        return render(request,'app1/additem.html')
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def create_unit(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        if request.method == 'POST':
+            usymbol = request.POST['usymbol']
+            uname = request.POST['uname']
+            unit = unittable(unit_symbol=usymbol,name=uname)
+            unit.save()
+            return redirect('add_item')
+        return render(request,'app1/unitcreation.html',{'cmp1': cmp1})    
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def deleteitem(request, id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        try:
+            sl = itemtable.objects.get(id=id)
+            sl.delete()
+            return redirect('goitem',{'cmp1': cmp1})
+        except:
+            return redirect('goitem')
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def view_item(request,id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        item = itemtable.objects.filter(id=id)
+        context = {'item':item,'cmp1': cmp1}
+        return render(request,'app1/item_view.html',context)
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def itemedit_page(request,id):   
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        item = itemtable.objects.filter(id=id)
+        unit = unittable.objects.all()
+        acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
+        acc1  = accounts1.objects.filter(acctype='Sales')
+        context = {'item':item,'unit':unit,'acc':acc,'acc1':acc1,'cmp1': cmp1}
+        return render(request,'app1/item_edit.html',context) 
+    except:
+        return redirect('goitem')
+
+@login_required(login_url='regcomp')
+def update_item(request, id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        if request.method == 'POST':
+            item = itemtable.objects.get(id=id)
+            item.name = request.POST.get('name')
+            item.item_type = request.POST.get('type')
+            item.unit = request.POST.get('unit')
+            item.hsn = request.POST.get('hsn')
+            item.tax_reference = request.POST.get('taxref')
+            item.purchase_cost = request.POST.get('pcost')
+            item.sales_cost = request.POST.get('salesprice')
+            item.tax_rate = request.POST.get('tax')
+            item.acount_pur = request.POST.get('pur_account')
+            item.account_sal = request.POST.get('sale_account')
+            item.pur_desc = request.POST.get('pur_desc')
+            item.sale_desc = request.POST.get('sale_desc')
+            item.intra_st = request.POST.get('intra_st')
+            item.inter_st = request.POST.get('inter_st')
+            item.inventry = request.POST.get('invacc')
+            item.stock = request.POST.get('stock')
+            item.status = request.POST.get('status')
+            item.save()
+            return redirect('goitem')
+        return render(request,'app1/item_view.html',{'cmp1': cmp1})    
+    except:
+        return redirect('goitem')
 
