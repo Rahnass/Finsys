@@ -25859,3 +25859,9 @@ def update_item(request, id):
     except:
         return redirect('goitem')
 
+
+def gomjoural(request):
+    return render(request,'app1/mjournal.html')
+
+def add_mjournal(request):
+    return render(request,'app1/add_mjournal.html')    
