@@ -25612,9 +25612,9 @@ def deletestyle(request, customizeid):
 def add_item(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        unit = unittable.objects.all()
-        acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
-        acc1  = accounts1.objects.filter(acctype='Sales')
+        unit = unittable.objects.filter(cid=cmp1)
+        acc  = accounts1.objects.filter(acctype='Cost of Goods Sold',cid=cmp1)
+        acc1  = accounts1.objects.filter(acctype='Sales',cid=cmp1)
         context = {'unit':unit,'acc':acc,'acc1':acc1,'cmp1': cmp1}
         return render(request, 'app1/additem.html',context)
     except:
@@ -25641,7 +25641,7 @@ def goitem(request):
 def iactive(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.filter(status='Active')
+        items = itemtable.objects.filter(status='Active',cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context) 
     except:
@@ -25650,7 +25650,7 @@ def iactive(request):
 def inactive(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.filter(status='Inactive')
+        items = itemtable.objects.filter(status='Inactive',cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)     
     except:
@@ -25659,7 +25659,7 @@ def inactive(request):
 def igoods(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.filter(item_type='goods')
+        items = itemtable.objects.filter(item_type='goods',cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context) 
     except:
@@ -25668,7 +25668,7 @@ def igoods(request):
 def iservices(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.filter(item_type='services')
+        items = itemtable.objects.filter(item_type='services',cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)    
     except:
@@ -25677,7 +25677,7 @@ def iservices(request):
 def ipurchase(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.exclude(purchase_cost='')
+        items = itemtable.objects.exclude(purchase_cost='').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)     
     except:
@@ -25686,7 +25686,7 @@ def ipurchase(request):
 def isales(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.exclude(sales_cost='')
+        items = itemtable.objects.exclude(sales_cost='').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)         
     except:
@@ -25695,7 +25695,7 @@ def isales(request):
 def iordername(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.order_by('name')
+        items = itemtable.objects.order_by('name').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)      
     except:
@@ -25704,7 +25704,7 @@ def iordername(request):
 def iodhsn(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.order_by('hsn')
+        items = itemtable.objects.order_by('hsn').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)         
     except:
@@ -25713,7 +25713,7 @@ def iodhsn(request):
 def iod_rate(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.order_by('tax_rate')
+        items = itemtable.objects.order_by('tax_rate').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)  
     except:
@@ -25722,7 +25722,7 @@ def iod_rate(request):
 def iod_import(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.order_by('purchase_cost')
+        items = itemtable.objects.order_by('purchase_cost').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)  
     except:
@@ -25731,7 +25731,7 @@ def iod_import(request):
 def iod_export(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        items = itemtable.objects.order_by('sales_cost')
+        items = itemtable.objects.order_by('sales_cost').filter(cid=cmp1)
         context = {'items':items,'cmp1': cmp1}
         return render(request, 'app1/itemmodule.html',context)              
     except:
@@ -25822,9 +25822,9 @@ def itemedit_page(request,id):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
         item = itemtable.objects.filter(id=id)
-        unit = unittable.objects.all()
-        acc  = accounts1.objects.filter(acctype='Cost of Goods Sold')
-        acc1  = accounts1.objects.filter(acctype='Sales')
+        unit = unittable.objects.filter(cid=cmp1)
+        acc  = accounts1.objects.filter(acctype='Cost of Goods Sold',cid=cmp1)
+        acc1  = accounts1.objects.filter(acctype='Sales',cid=cmp1)
         context = {'item':item,'unit':unit,'acc':acc,'acc1':acc1,'cmp1': cmp1}
         return render(request,'app1/item_edit.html',context) 
     except:
@@ -25859,9 +25859,21 @@ def update_item(request, id):
     except:
         return redirect('goitem')
 
-
+@login_required(login_url='regcomp')
 def gomjoural(request):
-    return render(request,'app1/mjournal.html')
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        return render(request,'app1/mjournal.html')
+    except:
+        return redirect('gomjoural')    
 
-def add_mjournal(request):
-    return render(request,'app1/add_mjournal.html')    
+@login_required(login_url='regcomp')
+def add_mjournal(request): 
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        acc = accounts1.objects.filter(cid=cmp1)
+        cust = customer.objects.filter(cid=cmp1)
+        context = {'acc':acc,'cmp1':cmp1,'cust':cust}
+        return render(request,'app1/add_mjournal.html',context)    
+    except:
+        return redirect('gomjoural')    

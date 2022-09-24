@@ -1,3 +1,4 @@
+from locale import currency
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -1109,3 +1110,25 @@ class unittable(models.Model):
     unit_symbol = models.CharField(max_length=100)
     name = models.CharField(max_length=100)
 
+
+class mjournal(models.Model):
+    mjournalid = models.AutoField(("MJOURNALID"), primary_key=True)
+    cid = models.ForeignKey(company, on_delete=models.CASCADE)
+    date = models.CharField(max_length=100)
+    ref_no = models.CharField(max_length=100)
+    notes = models.CharField(max_length=100)
+    j_type = models.CharField(max_length=100)
+    currency = models.CharField(max_length=100)
+    account1 = models.CharField(max_length=100)
+    desc1 = models.CharField(max_length=100)
+    contact1 = models.CharField(max_length=100)
+    debit1 = models.CharField(max_length=100)
+    credit1 = models.CharField(max_length=100)
+    desc2 = models.CharField(max_length=100)
+    contact2 = models.CharField(max_length=100)
+    debit2 = models.CharField(max_length=100)
+    credit2 = models.CharField(max_length=100)
+    attach = models.CharField(max_length=100) 
+    s_total = models.CharField(max_length=100)
+    total = models.CharField(max_length=100)
+    difference = models.CharField(max_length=100)

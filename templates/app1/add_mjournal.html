@@ -1,65 +1,8 @@
 {% extends 'app1/base.html' %}
 {% block body %}
     {% load static %}
-    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-    <script>
-        $(document).ready(function () {
-            var i = 1;
-            $("#add_row").click(function () {
-                b = i - 1;
-                $('#addr' + i).html($('#addr' + b).html()).find('td:first-child').html(i + 1);
-                $('#tab_logic').append('<tr id="addr' + (i + 1) + '"></tr>');
-                i++;
-            });
-            $("#delete_row").click(function () {
-                if (i > 1) {
-                    $("#addr" + (i - 1)).html('');
-                    i--;
-                }
-                calc();
-            });
+   
 
-            $('#tab_logic tbody').on('keyup change', function () {
-                calc();
-            });
-            $('#tax').on('keyup change', function () {
-                calc_total();
-            });
-
-
-        });
-
-        function calc() {
-            $('#tab_logic tbody tr').each(function (i, element) {
-                var html = $(this).html();
-                if (html != '') {
-                    var qty = $(this).find('.qty').val();
-                    var price = $(this).find('.price').val();
-                    var tax = $(this).find('.tax').val();
-                    var taxamount = $(this).find('.taxamount').val();
-                    $(this).find('.total').val(qty * price);
-                    $(this).find('.taxamount').val((qty * price) * (tax / 100));
-
-                    calc_total();
-                }
-            });
-        }
-
-        function calc_total() {
-            total = 0;
-            $('.total').each(function () {
-                total += parseFloat($(this).val());
-            });
-            taxamount = 0;
-            $('.taxamount').each(function () {
-                taxamount += parseFloat($(this).val());
-            });
-            $('#sub_total').val(total.toFixed(2));
-            $('#tax_amount').val(taxamount.toFixed(2));
-            tax_sum = total / 100 * $('#tax').val();
-            $('#total_amount').val((taxamount + total).toFixed(2));
-        }
-    </script>
 
     <style>
         input {
@@ -81,187 +24,94 @@
                     <hr/>
                 </div>
             </div>
-
             <div class="card radius-15">
                 <div class="card-body">
-                    <div class="row ">
-                        <div class="col-md-4">
-                            
-                            <label class="col-form-label">Date *</label>
-                            <input type="date" class="form-control" id="date" name="jdate" >
-                          
-
+                    <div class="row mt-3">
+                        <div class="col-md-3">
+                            <label class="col-form-label">Date*</label>
+                            <div class="d-flex">
+                                <input type="date"  name="dateto1" id="dateto1" class="form-control">
+                            </div>
                         </div>
-                    </div>
-                    <div class="row ">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label class="col-form-label">Journal no * </label>
-                            <label for="billingaddress"></label>
-                            <input type="text" class="form-control"  id="jno" name="jnum">
-                        </div>
-                        <div class="col-md-4">
+                            <input type="text" class="form-control"   id="jno" name="jnum"> </div>
+                        <div class="col-md-3">
                             <label class="col-form-label">Reference no  </label>
-                            <label for="billingaddress"></label>
                             <input type="text" class="form-control"  id="rjno" name="rjnum">
                         </div>
-                    
-                    </div>
-                    <div class="row ">
-                        <div class="col-md-4">
-                            <label class="col-form-label">Notes *</label>
-                            <textarea type="text" row="4" id="jnotes" class="form-control"
-                                   name="jnotes"></textarea>
-                        </div>
-                    
-                    </div>
-                    <div class="row ">
-                        <div class="col-md-4">
-                            <label class="col-form-label">Notes *</label>
-                            <textarea type="text" row="4" id="jnotes" class="form-control"
-                                   name="jnotes"></textarea>
-                        </div>
-                    
-                    </div>
-                    
-                    <!--<div class="row mt-12">
-                        <div class="col-md-4">
-                            <label class="col-form-label">Date *</label>
-                            <input type="date" class="form-control" id="date" name="jdate" >
-                          
-
-                        </div>
-                       
                         <div class="col-md-3"></div>
                     </div>
                     <div class="row mt-3">
                         <div class="col-md-3">
-                            <label class="col-form-label">Journal no * </label>
-                            <label for="billingaddress"></label>
-                            <input type="text" class="form-control"  id="jno" name="jnum">
-                        </div>
-                        
-                        <div class="col-md-3">
-                        </div>
-                    </div>
-                    <div class="row mt-3" style="display:inline;">
-                        <div class="col-md-3">
-                            <label class="col-form-label">Reference no  </label>
-                            <label for="billingaddress"></label>
-                            <input type="text" class="form-control"  id="rjno" name="rjnum">
-                        </div>
-                        
-                        <div class="col-md-3">
-                        </div>
-                    </div>
-                    <div class="row mt-3">
-                        <div class="col-md-3">
                             <label class="col-form-label">Notes *</label>
-                            <textarea type="text" row="3" id="jnotes" class="form-control"
-                                   name="jnotes"></textarea>
+                            <textarea class="form-control" rows="3" id="notes" name="jnotes"></textarea>
                         </div>
-                        
+                        <div class="col-md-3">
+                            <label class="col-form-label">Currency</label>
+                            <select class="form-control"  id="currency" name="jcurrency">
+                                <option value="INR-Indian Rupee">INR-Indian Rupee</option>
+                            </select>
+                        </div>
                     </div>
                     <div class="row mt-3">
-                    <div class="col-md-3">
-                        <div class="form-check">
-                            <label class="col-form-label">Journal type </label>
-                            <input class="form-check-input" type="checkbox"  id="track">
-                            <label class="form-check-label" for="track" >
-                              Cash based journal
-                            </label>
-                          </div>
-                         
+                        <div class="col-md-4" >
+                            
+                            <label class="col-form-label">Journal Type </label>
+                            <input style="margin-left:90px;" type="checkbox"  id="jtype" 
+                                   name="jtype">
+                                   <label class="col-form-label">Cash based journal</label>
+                        </div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3"></div>
+                        <div class="col-md-3"></div>
                     </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="form-check" style="display:left">
-                        <label class="col-form-label">Currency</label>
-                        <select class="form-control"  id="currency" name="jcurrency">
-                            <option value="INR-Indian Rupee">INR-Indian Rupee</option>
-                        </select>
-                      </div>
-                     
-                </div>
-            </div>-->
-
                     <div class="row clearfix mt-4">
                         <div class="col-md-12 table-responsive-md">
                             <table class="table table-bordered table-hover" id="tab_logic">
                                 <thead>
                                 <tr>
                                     <th class="text-center"> #</th>
-                                    <th class="text-center"> Product / Service</th>
-                                    <th class="text-center">HSN</th>
-                                    <th>Description</th>
-                                    <th>QTY</th>
-                                    <th>Rate</th>
-                                    <th>Total</th>
-                                    <th>Tax (%)</th>
+                                    <th class="text-center">Select Account</th>
+                                    <th class="text-center">Description</th>
+                                    <th>Contact(INR)</th>
+                                    <th>Debits</th>
+                                    <th>Credits</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr id='addr0'>
                                     <td>1</td>
                                     <td>
-                                        <select name='product' id="product" class="form-control">
-                                            <option value="NIL" selected>Select Product</option>
-                                            {% for proinv in inv %}
-                                                {% if proinv.cid_id == cmp1.cid %}
-                                                    <option text="{{ proinv.inventoryid }}"
-                                                            value="{{ proinv.name }}">{{ proinv.name }} </option>
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for proinv in noninv %}
-                                                {% if proinv.cid_id == cmp1.cid %}
-                                                    <option text="{{ proinv.noninventoryid }}"
-                                                            value="{{ proinv.name }}">{{ proinv.name }} </option>
-                                                {% endif %}
-                                            {% endfor %}
-                                            {% for proinv in bun %}
-                                                {% if proinv.cid_id == cmp1.cid %}
-                                                    <option text="{{ proinv.bundleid }}"
-                                                            value="{{ proinv.name }}">{{ proinv.name }} </option>
-                                                {% endif %}
+                                        <select name='account' id="account" class="form-control">
+                                            <option value="" selected disabled>Select Account</option>
+                                            {% for a in acc %}
+                                                    <option   value="{{ a.name }}">{{ a.name }} </option>
                                             {% endfor %}
                                         </select>
                                     </td>
-                                    <td><input type="text" name='hsn' id="hsn1"
-                                               placeholder='Enter HSN' class="form-control">
+                                    <td><input type="text" name='jdesc' id="jdesc1"
+                                               placeholder='Enter Description' class="form-control">
                                     </td>
-                                    <td><input type="text" name='description' id="description"
-                                               placeholder='Enter description'
+                                    <td><select name='jcontact' id="jcontact1"
                                                class="form-control">
+                                               <option value="" selected disabled>Select COntact</option>
+                                            {% for a in cust %}
+                                                    <option   value="{{ a.firstname }} {{ a.lastname }}">{{ a.firstname }} {{ a.lastname }} </option>
+                                            {% endfor %}
 
                                     </td>
                                     <td>
-                                        <input type="number" name='qty' id="qty1"
-                                               placeholder='Enter QTY'
+                                        <input type="number" name='jdebit' id="jdebit1"
                                                class="form-control qty" step="0" min="0"/>
                                                <span id="qtyspan" class="text-muted"></span>
                                     </td>
-                                    <td><input type="number" name='rate' id="unit1"
-                                               placeholder='Enter Rate'
+                                    <td><input type="number" name='jcredit' id="jcredit1"
                                                class="form-control price" step="0.00"
                                                min="0"/>
                                     </td>
-                                    <td><input type="number" name='total' id="total" placeholder='0.00'
-                                               class="form-control total" readonly/></td>
-                                    <td>
-                                        <select name="tax" id="tax" class="form-control tax"
-                                                style="background-color: #2f516f; color: white;">
-                                            <option value="" selected>Choose</option>
-                                            <option value="28">28.0% GST(28%)</option>
-                                            <option value="18">18.0% GST(18%)</option>
-                                            <option value="12">12.0% GST(12%)</option>
-                                            <option value="6">06.0% GST(06%)</option>
-                                            <option value="5">05.0% GST(05%)</option>
-                                            <option value="3">03.0% GST(03%)</option>
-                                            <option value=".25">0.25% GST(0.25%)</option>
-                                            <option value="0">0.0% GST(0%)</option>
-                                            <option value="0">Exempt GST(0%)</option>
-                                            <option value="0">Out of Scope(0%)</option>
-                                        </select>
-                                    </td>
+                                    
+                                    
                                     <td style="display: none;"><input type="number" name='taxamount' id="taxamount"
                                                                       class="form-control taxamount"/></td>
                                 <tr id='addr0'>
@@ -519,127 +369,5 @@
         </div>
         <input type="text" id="hello">
     </form>
-    <script>
-    <script>
-        function showinnum(divId, element) {
-            if (element.value) {
-                document.getElementById(divId).innerHTML = "ESTIMATE NO. " + element.value;
-            } else {
-                document.getElementById(divId).innerHTML = "ESTIMATE NO. ";
-            }
-        }
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('#select').on('change', function () {
-                select = $('#select').val();
-                $.ajax({
-                    type: "GET",
-                    url: "{% url 'getdata' %}",
-                    data: {id: select}
-                }).done(function (response) {
-                    var json_data = JSON.parse(response);
-                    for (key in json_data) {
-                        document.getElementById('email').value = json_data[key]['email'];
-                        document.getElementById('plosu').value = json_data[key]['state'];
-                        document.getElementById('billin').value = json_data[key]['firstname'] + ' ' + json_data[key]['lastname'] + '\n' + json_data[key]['company'] + '\n' + json_data[key]['street'] + '\n' + json_data[key]['city'] + '\n' + json_data[key]['state'] + '\n' + json_data[key]['pincode'] + '\n' + json_data[key]['country'];
-                    }
-                }).fail(function () {
-                    alert("failed");
-                })
-            })
-        })
-        $('#product').on('change', function () {
-            select = $('#product').val();
-            $.ajax({
-                type: "GET",
-                url: "{% url 'getitems' %}",
-                data: {id: select}
-            }).done(function (response) {
-                var json_data = JSON.parse(response);
-                for (key in json_data) {
-                    document.getElementById('hsn1').value = json_data[key]['hsn'];
-                    document.getElementById('description').value = json_data[key]['description'];
-                    document.getElementById('qty1').value = 0;
-                    document.getElementById('unit1').value = json_data[key]['salesprice'];
-                    if(json_data[key]['initialqty'] == ''){
-                        document.getElementById('qtyspan').innerHTML = '';
-                    }else{
-                        document.getElementById('qtyspan').innerHTML = 'Available Quantity : ' + json_data[key]['initialqty'];
-                    }
-                }
-            }).fail(function () {
-                alert("failed");
-            })
-        });
-        $('#product2').on('change', function () {
-            select = $('#product2').val();
-            $.ajax({
-                type: "GET",
-                url: "{% url 'getitems' %}",
-                data: {id: select}
-            }).done(function (response) {
-                var json_data = JSON.parse(response);
-                for (key in json_data) {
-                    document.getElementById('hsn2').value = json_data[key]['hsn'];
-                    document.getElementById('description2').value = json_data[key]['description'];
-                    document.getElementById('qty2').value = 0;
-                    document.getElementById('unit2').value = json_data[key]['salesprice'];
-                    if(json_data[key]['initialqty'] == ''){
-                        document.getElementById('qtyspan1').innerHTML = '';
-                    }else{
-                        document.getElementById('qtyspan1').innerHTML = 'Available Quantity : ' + json_data[key]['initialqty'];
-                    }
-                }
-            }).fail(function () {
-                alert("failed");
-            })
-        });
-        $('#product3').on('change', function () {
-            select = $('#product3').val();
-            $.ajax({
-                type: "GET",
-                url: "{% url 'getitems' %}",
-                data: {id: select}
-            }).done(function (response) {
-                var json_data = JSON.parse(response);
-                for (key in json_data) {
-                    document.getElementById('hsn3').value = json_data[key]['hsn'];
-                    document.getElementById('description3').value = json_data[key]['description'];
-                    document.getElementById('qty3').value = 0;
-                    document.getElementById('unit3').value = json_data[key]['salesprice'];
-                    if(json_data[key]['initialqty'] == ''){
-                        document.getElementById('qtyspan2').innerHTML = '';
-                    }else{
-                        document.getElementById('qtyspan2').innerHTML = 'Available Quantity : ' + json_data[key]['initialqty'];
-                    }
-                }
-            }).fail(function () {
-                alert("failed");
-            })
-        });
-        $('#product4').on('change', function () {
-            select = $('#product4').val();
-            $.ajax({
-                type: "GET",
-                url: "{% url 'getitems' %}",
-                data: {id: select}
-            }).done(function (response) {
-                var json_data = JSON.parse(response);
-                for (key in json_data) {
-                    document.getElementById('hsn4').value = json_data[key]['hsn'];
-                    document.getElementById('description4').value = json_data[key]['description'];
-                    document.getElementById('qty4').value = 0;
-                    document.getElementById('unit4').value = json_data[key]['salesprice'];
-                    if(json_data[key]['initialqty'] == ''){
-                        document.getElementById('qtyspan3').innerHTML = '';
-                    }else{
-                        document.getElementById('qtyspan3').innerHTML = 'Available Quantity : ' + json_data[key]['initialqty'];
-                    }
-                }
-            }).fail(function () {
-                alert("failed");
-            })
-        });
-    </script>
-{% endblock %}
+   
+   {% endblock %}
