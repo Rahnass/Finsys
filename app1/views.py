@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from datetime import datetime, date, timedelta
-from .models import advancepayment, itemtable,  paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
+from .models import advancepayment, itemtable, mjournal,  paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
     bills, invoice, expences, payment, credit, delayedcharge, estimate, service, noninventory, bundle, employee, \
     payslip, inventory, customer, supplier, company, accounts, ProductModel, ItemModel, accountype, \
     expenseaccount, incomeaccount, accounts1, recon1, recordpay, addtax1, bankstatement, customize, unittable
@@ -25863,7 +25863,8 @@ def update_item(request, id):
 def gomjoural(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        return render(request,'app1/mjournal.html')
+        mj = mjournal.objects.filter(cid=cmp1)
+        return render(request,'app1/mjournal.html',{'mj':mj})
     except:
         return redirect('gomjoural')    
 
@@ -25877,3 +25878,111 @@ def add_mjournal(request):
         return render(request,'app1/add_mjournal.html',context)    
     except:
         return redirect('gomjoural')    
+
+
+@login_required(login_url='regcomp')
+def create_mjournal(request):
+    if request.method == 'POST':
+        cmp1 = company.objects.get(id=request.session['uid'])
+        mjdate = request.POST['dateto1']
+        mjno = request.POST['jnum']
+        mjrno = request.POST.get('rjnum')
+        notes = request.POST['jnotes']
+        currency = request.POST['jcurrency']
+        mjtype = request.POST['jtype']
+        acc1 = request.POST['account']
+        desc1 = request.POST['jdesc']
+        cont1 = request.POST['jcontact']
+        deb1 = request.POST['jdebit']
+        cred1 = request.POST['jcredit']
+        acc2 = request.POST['account1']
+        desc2 = request.POST['jdesc1']
+        cont2 = request.POST['jcontact1']
+        deb2 = request.POST['jdebit1']
+        cred2 = request.POST['jcredit1']
+        file = request.POST['pic']
+        subtotal = request.POST['sub_total']
+        subtotal1 = request.POST['sub_total1']
+        total = request.POST['total_amount']
+        total1 = request.POST['total_amount1']
+        differ = request.POST['differ']
+            
+        mjrnl = mjournal(date=mjdate,mj_no=mjno,ref_no=mjrno,
+                                notes=notes,j_type=mjtype,
+                                currency=currency,
+                                account1=acc1,
+                                desc1=desc1,
+                                contact1=cont1,
+                                debit1=deb1,
+                                credit1=cred1,
+                                account2=acc2,
+                                desc2=desc2,
+                                contact2=cont2,
+                                debit2=deb2,
+                                credit2=cred2,
+                                attach=file,
+                                s_totaldeb=subtotal,
+                                s_totalcre=subtotal1,
+                                total_deb=total,
+                                total_cre=total1,
+                                difference=differ,
+                                cid=cmp1)
+        mjrnl.save()
+        return redirect('gomjoural')
+    return render(request,'app1/add_mjournal.html')
+         
+
+@login_required(login_url='regcomp')
+def view_mj(request,id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        mjl = mjournal.objects.filter(id=id)
+        context = {'mjl':mjl,'cmp1': cmp1}
+        return render(request,'app1/view_mj.html',context)
+    except:
+        return redirect('gomjoural')         
+
+@login_required(login_url='regcomp')
+def mj_edit_page(request,id):   
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        mjrnl = mjournal.objects.filter(id=id)
+        acc  = accounts1.objects.filter(cid=cmp1)
+        context = {'mjrnl':mjrnl,'acc':acc,'cmp1': cmp1}
+        return render(request,'app1/mj_edit.html',context) 
+    except:
+        return redirect('gomjoural')
+
+@login_required(login_url='regcomp')
+def update_mj(request, id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        if request.method == 'POST':
+            mjrnl = mjournal.objects.get(id=id)
+            mjrnl.date = request.POST.get('dateto1')
+            mjrnl.mj_no = request.POST.get('jnum')
+            mjrnl.ref_no = request.POST.get('rjnum')
+            mjrnl.notes = request.POST.get('jnotes')
+            mjrnl.j_type = request.POST.get('jcurrency')
+            mjrnl.currency = request.POST.get('jtype')
+            mjrnl.account1 = request.POST.get('account')
+            mjrnl.desc1 = request.POST.get('jdesc')
+            mjrnl.contact1 = request.POST.get('jcontact')
+            mjrnl.debit1 = request.POST.get('jdebit')
+            mjrnl.credit1 = request.POST.get('jcredit')
+            mjrnl.account2 = request.POST.get('account1')
+            mjrnl.desc2 = request.POST.get('jdesc1')
+            mjrnl.contact2 = request.POST.get('jcontact1')
+            mjrnl.debit2 = request.POST.get('jdebit1')
+            mjrnl.credit2 = request.POST.get('jcredit1')
+            mjrnl.attach = request.POST.get('pic')
+            mjrnl.s_totaldeb = request.POST.get('sub_total')
+            mjrnl.s_totalcre = request.POST.get('sub_total1')
+            mjrnl.total_deb = request.POST.get('total_amount')
+            mjrnl.total_cre = request.POST.get('total_amount1')
+            mjrnl.difference = request.POST.get('differ')
+            mjrnl.save()
+            return redirect('gomjoural')
+        return render(request,'app1/view_mj.html',{'cmp1': cmp1})    
+    except:
+        return redirect('gomjoural')

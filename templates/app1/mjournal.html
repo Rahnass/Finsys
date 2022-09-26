@@ -44,7 +44,7 @@
                             </div>
                         </div>
                       </div>
-                  <!--<div class="col">
+                  <div class="col">
                     
                     <div class="dropdown">
                         <button type="button" class="btn btn-outline-info dropdown-toggle text-grey"
@@ -54,22 +54,15 @@
                             <a class="dropdown-item" href="{% url 'goitem' %}"
                                style="height: 40px; font-size: 15px; color: white;" >All</a>
                             <a class="dropdown-item" href="{% url 'iactive' %}"
-                               style="height: 40px; font-size: 15px; color: white;">Active</a>
+                               style="height: 40px; font-size: 15px; color: white;">Draft</a>
                             <a class="dropdown-item" href="{% url 'inactive' %}"
-                               style="height: 40px; font-size: 15px; color: white;">Inactive</a>
-                            <a class="dropdown-item" href="{% url 'ipurchase' %}"
-                               style="height: 40px; font-size: 15px; color: white;">Purchase</a>
-                            <a class="dropdown-item" href="{% url 'isales' %}"
-                               style="height: 40px; font-size: 15px; color: white;">Sales</a>
-                            <a class="dropdown-item" href="{% url 'iservices' %}"
-                               style="height: 40px; font-size: 15px; color: white;">Serives</a>
-                            <a class="dropdown-item" href="{% url 'igoods' %}"
-                               style="height: 40px; font-size: 15px; color: white;">Goods</a>
-                        </div>
+                               style="height: 40px; font-size: 15px; color: white;">Published</a>
+                            
                     </div> 
                   </div>
+                </div>
                  
-                  <div class="col">
+                  <!--<div class="col">
                     <div class="dropdown">
                         <button type="button" class="btn btn-outline-info dropdown-toggle text-grey"
                                 data-toggle="dropdown">Sort by
@@ -108,42 +101,27 @@
                         <th>JOURNAL NO</th>
                         <th>REFERENCE NO</th>
                         <th>STATUS</th>
-                        <th>DESCRIPTION</th>
+                        <th>NOTES</th>
                         
                         <th>AMOUNT</th>
                         <th>DOCUMENTS</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {% for a in items %}
-                <tr class='clickable-row' data-href="view_item/{{ a.id }}" >
-                                <td>{{ a.name }}</td>
-                                <td>{{ a.item_type }}</td>
-                                <td>{{ a.unit }}</td>
+                    {% for a in mj %}
+                <tr class='clickable-row' data-href="view_mj/{{ a.id }}" >
+                                <td>{{ a.date }}</td>
+                                <td>{{ a.mj_no }}</td>
+                                <td>{{ a.ref_no }}</td>
                                 <td>{{ a.hsn }}</td>
-                                <td>{{ a.purchase_cost }}</td>
-                                <td>{{ a.sales_cost }}</td>
-                                <td>{{ a.tax_rate }}</td>
-                                <td>{{ a.stock }}
+                                <td>{{ a.notes }}</td>
+                                <td>{{ a.debit1 }}</td>
+                                <td>{{ a.attach }}</td>
+                                
                                         
-                                    <!--<div class="dropdown">
-                                        <button type="button" class="btn btn-outline-info dropdown-toggle text-grey"
-                                                data-toggle="dropdown">Actions
-                                        </button>
-                                        <div class="dropdown-menu" style="background-color: white;">
-                                            <a href="itemedit_page/{{ a.id }}" class="dropdown-item"
-                                               style="color: black; font-size: 15px;">
-                                                <i class="bx bx-edit"><b>EDIT</b></i>
-                                            </a>
-                                            <a href="view_item/{{ a.id }}" class="dropdown-item"
-                                               style="color: black; font-size: 15px;">
-                                                <i class="bx bx-edit"><b>VIEW</b></i>
-                                            </a>
-                                            
-                                        </div>
-                                    </div>-->
+                                    
 
-                                </td></a>
+                                </a>
                             </tr>
                      
                     {% endfor %}

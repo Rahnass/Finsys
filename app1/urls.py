@@ -378,4 +378,8 @@ urlpatterns = [
     #  manual journal
     re_path(r'^gomjoural$', views.gomjoural, name='gomjoural'),
     re_path(r'^add_mjournal$', views.add_mjournal, name='add_mjournal'),
+    re_path(r'^create_mjournal$', views.create_mjournal, name='create_mjournal'),
+    re_path(r'^view_mj/(?P<id>\d+)$', views.view_mj, name='view_mj'),
+    re_path(r'^mj_edit_page/(?P<id>\d+)$', views.mj_edit_page, name='mj_edit_page'),
+    re_path(r'^update_mj/(?P<id>\d+)$', views.update_mj, name='update_mj'),
 ]

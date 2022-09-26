@@ -1111,10 +1111,11 @@ class unittable(models.Model):
     name = models.CharField(max_length=100)
 
 
+
 class mjournal(models.Model):
-    mjournalid = models.AutoField(("MJOURNALID"), primary_key=True)
     cid = models.ForeignKey(company, on_delete=models.CASCADE)
     date = models.CharField(max_length=100)
+    mj_no = models.CharField(max_length=100)
     ref_no = models.CharField(max_length=100)
     notes = models.CharField(max_length=100)
     j_type = models.CharField(max_length=100)
@@ -1124,11 +1125,15 @@ class mjournal(models.Model):
     contact1 = models.CharField(max_length=100)
     debit1 = models.CharField(max_length=100)
     credit1 = models.CharField(max_length=100)
+    account2 = models.CharField(max_length=100)
     desc2 = models.CharField(max_length=100)
     contact2 = models.CharField(max_length=100)
     debit2 = models.CharField(max_length=100)
     credit2 = models.CharField(max_length=100)
     attach = models.CharField(max_length=100) 
-    s_total = models.CharField(max_length=100)
-    total = models.CharField(max_length=100)
+    s_totaldeb = models.CharField(max_length=100)
+    s_totalcre = models.CharField(max_length=100)
+    total_deb = models.CharField(max_length=100)
+    total_cre = models.CharField(max_length=100)
     difference = models.CharField(max_length=100)
+

@@ -11,6 +11,7 @@
                 color: white;
             }
         </style>
+        {% for a in mjrnl %}
         <div class="page-content">
             <div class="card radius-15">
                 <div class="card-body">
@@ -21,7 +22,7 @@
                                     <div class="col-md-2"></div>
                                     <div class="col-md-8 mt-4 mb-4">
                                         <center>
-                                            <h5 class="card-title"><h3>NEW JOURNAL</h3></h5>
+                                            <h5 class="card-title"><h3>EDIT JOURNAL NO.{{ a.mj_no }}</h3></h5>
                                         </center>
                                     </div><br>
                                     
@@ -29,7 +30,7 @@
                             </div>
                         </div>
                     </div>
-                    <form action="{% url 'create_mjournal' %}" method="post" class="needs-validation" novalidate>
+                    <form action="{% url 'update_mj' a.id %}" method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
                         
                         <div class="row">
@@ -40,15 +41,15 @@
                                             <div class="col-md-3">
                                                 <label class="col-form-label">Date*</label>
                                                 <div class="d-flex">
-                                                    <input type="date" required  name="dateto1" id="dateto1" class="form-control">
+                                                    <input type="date" required value="{{ a.date }}" name="dateto1" id="dateto1" class="form-control">
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="col-form-label">Journal no * </label>
-                                                <input type="text" class="form-control"   id="jno" name="jnum"> </div>
+                                                <input type="text" class="form-control"   id="jno" name="jnum" value="{{ a.mj_no }}" required> </div>
                                             <div class="col-md-3">
                                                 <label class="col-form-label">Reference no  </label>
-                                                <input type="text" class="form-control"  id="rjno" name="rjnum">
+                                                <input type="text" class="form-control"  id="rjno" name="rjnum" value="{{ a.ref_no }}" required>
                                             </div>
                                         </div>
                                         <div class="row">
@@ -58,7 +59,7 @@
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label class="col-form-label">Notes *</label>
-                                                                <textarea class="form-control" rows="3" id="notes" name="jnotes"></textarea>
+                                                                <textarea class="form-control" rows="3" id="notes" name="jnotes" value="{{ a.notes }}" required></textarea>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label class="col-form-label">Currency</label>
@@ -91,9 +92,9 @@
                                                         <th class="text-center"> #</th>
                                                         <th class="text-center">Select Account</th>
                                                         <th class="text-center">Description</th>
-                                                        <th>Contact(INR)</th>
-                                                        <th>Debits</th>
-                                                        <th>Credits</th>
+                                                        <th class="text-center">Contact(INR)</th>
+                                                        <th class="text-center">Debits</th>
+                                                        <th class="text-center">Credits</th>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -101,29 +102,29 @@
                                                         <td>1</td>
                                                         <td>
                                                             <select name='account' id="account" class="form-control">
-                                                                <option value="" selected disabled>Select Account</option>
+                                                                <option value="{{ a.account1 }}" >{{ a.account1 }}</option>
                                                                 {% for a in acc %}
                                                                         <option   value="{{ a.name }}">{{ a.name }} </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </td>
-                                                        <td><input type="text" name='jdesc' id="jdesc1"
+                                                        <td><input type="text" name='jdesc' id="jdesc1" value="{{ a.desc1 }}"
                                                                    placeholder='Enter Description' class="form-control">
                                                         </td>
                                                         <td><select name='jcontact' id="jcontact1"
                                                                    class="form-control">
-                                                                   <option value="null"  >Select Contact</option>
+                                                                   <option value="{{ a.contact1 }}"  >{{ a.contact1 }}</option>
                                                                 {% for a in cust %}
                                                                         <option   value="{{ a.firstname }} {{ a.lastname }}">{{ a.firstname }} {{ a.lastname }} </option>
                                                                 {% endfor %}
                     
                                                         </td>
                                                         <td>
-                                                            <input type="number" name='jdebit' id="jdebit1"
+                                                            <input type="number" name='jdebit' id="jdebit1" value="{{ a.debit1 }}"
                                                                    class="form-control qty" step="0" min="0"/>
                                                                    <span id="qtyspan" class="text-muted"></span>
                                                         </td>
-                                                        <td><input type="number" name='jcredit' id="jcredit1"
+                                                        <td><input type="number" name='jcredit' id="jcredit1" value="{{ a.credit1 }}"
                                                                    class="form-control price" step="0.00"
                                                                    min="0"/>
                                                         </td>
@@ -134,29 +135,29 @@
                                                         <td>2</td>
                                                         <td>
                                                             <select name='account1' id="account1" class="form-control">
-                                                                <option value="" selected disabled>Select Account</option>
+                                                                <option value="{{ a.account2 }}" >{{ a.account2 }}</option>
                                                                 {% for a in acc %}
                                                                         <option   value="{{ a.name }}">{{ a.name }} </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </td>
-                                                        <td><input type="text" name='jdesc1' id="jdesc2"
+                                                        <td><input type="text" name='jdesc1' id="jdesc2" value="{{ a.desc2 }}"
                                                                    placeholder='Enter Description' class="form-control">
                                                         </td>
                                                         <td><select name='jcontact1' id="jcontact2"
                                                                    class="form-control">
-                                                                   <option value="null"  >Select Contact</option>
+                                                                   <option value="{{ a.contact2 }}"  >{{ a.contact2 }}</option>
                                                                 {% for a in cust %}
                                                                         <option   value="{{ a.firstname }} {{ a.lastname }}">{{ a.firstname }} {{ a.lastname }} </option>
                                                                 {% endfor %}
                     
                                                         </td>
                                                         <td>
-                                                            <input type="number" name='jdebit1' id="jdebit2"
+                                                            <input type="number" name='jdebit1' id="jdebit2" value="{{ a.debit2 }}"
                                                                    class="form-control qty" step="0" min="0"/>
                                                                    <span id="qtyspan" class="text-muted"></span>
                                                         </td>
-                                                        <td><input type="number" name='jcredit1' id="jcredit2"
+                                                        <td><input type="number" name='jcredit1' id="jcredit2" value="{{ a.credit2 }}"
                                                                    class="form-control price" step="0.00"
                                                                    min="0"/>
                                                         </td>
@@ -171,7 +172,7 @@
                                         <div class="row clearfix" style="margin-top:20px">
                                             <div class="col-md-6">
                                                 <label for="formFileMultiple" class="form-label">Attach File(s)</label><br>
-                                                <input  type="file" name="pic" id="formFileMultiple" multiple />
+                                                <input  type="file" name="pic" id="formFileMultiple" value="{{ a.attach }}" multiple />
                                             </div>
                                             <div class="col-md-6 table-responsive-md">
                                                 <table class="table table-bordered table-hover"
@@ -184,7 +185,8 @@
                                                                                        name='sub_total'
                                                                                        placeholder='0.00'
                                                                                        class="form-control"
-                                                                                       id="sub_total" />
+                                                                                       id="sub_total"
+                                                                                       value="{{ a.s_totaldeb }}" />
                                                         </td>
                                                         <td>
                                                             <input
@@ -192,7 +194,8 @@
                                                                                        name='sub_total1'
                                                                                        placeholder='0.00'
                                                                                        class="form-control"
-                                                                                       id="sub_total" />
+                                                                                       id="sub_total"
+                                                                                       value="{{ a.s_totalcre }}" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -202,6 +205,7 @@
                                                                                        id="tax_amount"
                                                                                        placeholder='0.00'
                                                                                        class="form-control"
+                                                                                       value="{{ a.total_deb }}"
                                                                                        />
                                                         </td>
                                                         <td>
@@ -210,7 +214,8 @@
                                                                                        name='total_amount1'
                                                                                        placeholder='0.00'
                                                                                        class="form-control"
-                                                                                       id="sub_total" />
+                                                                                       id="sub_total" 
+                                                                                       value="{{ a.total_cre }}"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -220,6 +225,7 @@
                                                                                        id="total_amount"
                                                                                        placeholder='0.00'
                                                                                        class="form-control"
+                                                                                       value="{{ a.difference }}"
                                                                                        /></td>
                                                     </tr>
                                                     </tbody>
@@ -235,7 +241,7 @@
                                         </div>
                                         <div class="col-md-4">
                                             <button class="btn btn-outline-info rounded-pill w-100 text-light"
-                                                    type="submit">UPDATE
+                                                    type="submit">SAVE
                                             </button>
                                         </div>
                                         <div class="col-md-4"></div>
@@ -257,7 +263,7 @@
             </div>
         </div>
 
-
+{% endfor %}
 
         <script src="{% static 'assets/plugins/select2/js/select2.min.js' %}"></script>
         
