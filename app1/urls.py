@@ -382,4 +382,8 @@ urlpatterns = [
     re_path(r'^view_mj/(?P<id>\d+)$', views.view_mj, name='view_mj'),
     re_path(r'^mj_edit_page/(?P<id>\d+)$', views.mj_edit_page, name='mj_edit_page'),
     re_path(r'^update_mj/(?P<id>\d+)$', views.update_mj, name='update_mj'),
+    re_path(r'^deletemj/(?P<id>\d+)$', views.deletemj, name='deletemj'),
+    re_path(r'^mjdraft$', views.mjdraft, name='mjdraft'),
+
+    
 ]

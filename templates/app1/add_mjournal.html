@@ -29,6 +29,7 @@
                             </div>
                         </div>
                     </div>
+
                     <form action="{% url 'create_mjournal' %}" method="post" class="needs-validation" novalidate>
                         {% csrf_token %}
                         
@@ -40,12 +41,12 @@
                                             <div class="col-md-3">
                                                 <label class="col-form-label">Date*</label>
                                                 <div class="d-flex">
-                                                    <input type="date" required  name="dateto1" id="dateto1" class="form-control">
+                                                    <input type="date" required  name="dateto1" id="date" class="form-control" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-3">
                                                 <label class="col-form-label">Journal no * </label>
-                                                <input type="text" class="form-control"   id="jno" name="jnum"> </div>
+                                                <input type="text" class="form-control"   id="jno" name="jnum"  required> </div>
                                             <div class="col-md-3">
                                                 <label class="col-form-label">Reference no  </label>
                                                 <input type="text" class="form-control"  id="rjno" name="rjnum">
@@ -58,11 +59,11 @@
                                                         <div class="row">
                                                             <div class="col-md-3">
                                                                 <label class="col-form-label">Notes *</label>
-                                                                <textarea class="form-control" rows="3" id="notes" name="jnotes"></textarea>
+                                                                <textarea class="form-control" rows="3" id="notes" name="jnotes" required></textarea>
                                                             </div>
                                                             <div class="col-md-3">
                                                                 <label class="col-form-label">Currency</label>
-                                                                <select class="form-control"  id="currency" name="jcurrency">
+                                                                <select class="form-control"  id="currency" name="jcurrency" required>
                                                                     <option value="INR-Indian Rupee">INR-Indian Rupee</option>
                                                                 </select>
                                                             </div>
@@ -101,14 +102,14 @@
                                                         <td>1</td>
                                                         <td>
                                                             <select name='account' id="account" class="form-control">
-                                                                <option value="" selected disabled>Select Account</option>
+                                                                <option value="" selected disabled required>Select Account</option>
                                                                 {% for a in acc %}
                                                                         <option   value="{{ a.name }}">{{ a.name }} </option>
                                                                 {% endfor %}
                                                             </select>
                                                         </td>
                                                         <td><input type="text" name='jdesc' id="jdesc1"
-                                                                   placeholder='Enter Description' class="form-control">
+                                                                   placeholder='Enter Description' class="form-control" >
                                                         </td>
                                                         <td><select name='jcontact' id="jcontact1"
                                                                    class="form-control">
@@ -228,14 +229,14 @@
                                     </div>
                                     <div class="row mt-5 mb-5">
                                         <div class="col-md-4">
-                                            <a href="{% url 'goitem' %}"class="btn btn-outline-info rounded-pill w-25 text-light"
+                                            <a href="{% url 'gomjoural' %}"class="btn btn-outline-info rounded-pill w-25 text-light"
                                             >
                                             BACK
                                          </a>
                                         </div>
                                         <div class="col-md-4">
                                             <button class="btn btn-outline-info rounded-pill w-100 text-light"
-                                                    type="submit">UPDATE
+                                                    type="submit">SAVE
                                             </button>
                                         </div>
                                         <div class="col-md-4"></div>
@@ -379,6 +380,26 @@
     
             }
         </script>
+
+        <script>
+            const dateInput = document.getElementById('date');
+
+dateInput.value = formatDate();
+
+console.log(formatDate());
+
+function padTo2Digits(num) {
+  return num.toString().padStart(2, '0');
+}
+
+function formatDate(date = new Date()) {
+  return [
+    date.getFullYear(),
+    padTo2Digits(date.getMonth() + 1),
+    padTo2Digits(date.getDate()),
+  ].join('-');
+}
+</script>
 
        
     {% endif %}

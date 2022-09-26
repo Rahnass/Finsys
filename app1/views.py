@@ -16,6 +16,7 @@ from django.contrib.auth.decorators import login_required
 import itertools
 
 
+
 def index(request):
     return render(request, 'app1/index.html')
 
@@ -25889,13 +25890,13 @@ def create_mjournal(request):
         mjrno = request.POST.get('rjnum')
         notes = request.POST['jnotes']
         currency = request.POST['jcurrency']
-        mjtype = request.POST['jtype']
-        acc1 = request.POST['account']
+        mjtype = request.POST.get('jtype')
+        acc1 = request.POST.get('account')
         desc1 = request.POST['jdesc']
         cont1 = request.POST['jcontact']
         deb1 = request.POST['jdebit']
         cred1 = request.POST['jcredit']
-        acc2 = request.POST['account1']
+        acc2 = request.POST.get('account1')
         desc2 = request.POST['jdesc1']
         cont2 = request.POST['jcontact1']
         deb2 = request.POST['jdebit1']
@@ -25927,7 +25928,12 @@ def create_mjournal(request):
                                 total_cre=total1,
                                 difference=differ,
                                 cid=cmp1)
-        mjrnl.save()
+
+        if deb1 == cred2:
+            mjrnl.save()
+        else:    
+            messages.info( request, 'Please ensure that the debit and credit are equal')
+            return render(request, 'app1/add_mjournal.html')                        
         return redirect('gomjoural')
     return render(request,'app1/add_mjournal.html')
          
@@ -25986,3 +25992,26 @@ def update_mj(request, id):
         return render(request,'app1/view_mj.html',{'cmp1': cmp1})    
     except:
         return redirect('gomjoural')
+
+        
+ 
+@login_required(login_url='regcomp')
+def deletemj(request, id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        try:
+            sl = mjournal.objects.get(id=id)
+            sl.delete()
+            return redirect('gomjoural',{'cmp1': cmp1})
+        except:
+            return redirect('gomjoural')
+    except:
+        return redirect('gomjoural')       
+
+def mjdraft(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        mj = mjournal.objects.filter(status='DRAFT',cid=cmp1)
+        return render(request,'app1/mjournal.html',{'mj':mj})
+    except:
+        return redirect('gomjoural')            

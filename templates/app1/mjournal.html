@@ -51,11 +51,11 @@
                                 data-toggle="dropdown">filter by
                         </button>
                         <div class="dropdown-menu" style="background-color: black;">
-                            <a class="dropdown-item" href="{% url 'goitem' %}"
+                            <a class="dropdown-item" href="{% url 'gomjoural' %}"
                                style="height: 40px; font-size: 15px; color: white;" >All</a>
-                            <a class="dropdown-item" href="{% url 'iactive' %}"
+                            <a class="dropdown-item" href="{% url 'mjdraft' %}"
                                style="height: 40px; font-size: 15px; color: white;">Draft</a>
-                            <a class="dropdown-item" href="{% url 'inactive' %}"
+                            <a class="dropdown-item" href="#"
                                style="height: 40px; font-size: 15px; color: white;">Published</a>
                             
                     </div> 
@@ -113,7 +113,7 @@
                                 <td>{{ a.date }}</td>
                                 <td>{{ a.mj_no }}</td>
                                 <td>{{ a.ref_no }}</td>
-                                <td>{{ a.hsn }}</td>
+                                <td>{{ a.status }}</td>
                                 <td>{{ a.notes }}</td>
                                 <td>{{ a.debit1 }}</td>
                                 <td>{{ a.attach }}</td>
