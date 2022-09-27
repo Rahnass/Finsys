@@ -385,5 +385,12 @@ urlpatterns = [
     re_path(r'^deletemj/(?P<id>\d+)$', views.deletemj, name='deletemj'),
     re_path(r'^mjdraft$', views.mjdraft, name='mjdraft'),
 
+    #   settings
+
+    re_path(r'^C_profile$', views.C_profile, name='C_profile'),
+    re_path(r'^update_cprofile$', views.update_cprofile, name='update_cprofile'),
+    re_path(r'^view_users$', views.view_users, name='view_users'),
+    re_path(r'^Currencies$', views.Currencies, name='Currencies'),
+
     
 ]

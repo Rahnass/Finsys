@@ -14,6 +14,7 @@ import json
 from django.http.response import JsonResponse
 from django.contrib.auth.decorators import login_required
 import itertools
+import os
 
 
 
@@ -26015,3 +26016,63 @@ def mjdraft(request):
         return render(request,'app1/mjournal.html',{'mj':mj})
     except:
         return redirect('gomjoural')            
+
+@login_required(login_url='regcomp')
+def C_profile(request):
+    try:
+        cmp1 = company.objects.get(id=request.session["uid"])
+        context = {'cmp1': cmp1}
+        return render(request, 'app1/com_profile.html', context)
+    except:
+        return redirect('godash') 
+
+@login_required(login_url='regcomp')
+def update_cprofile(request):
+    if request.method=="POST":
+        user = User.objects.get(id=request.session["uid"])
+        comp = company.objects.get(id=user.id)
+
+
+        comp.cname = request.POST["cname"]
+        comp.caddress = request.POST["caddress"]
+        comp.city = request.POST["city"]
+        comp.state = request.POST["state"]
+        comp.pincode = request.POST["pincode"]
+        comp.cemail = request.POST["cemail"]
+        comp.phone = request.POST["phone"]
+        comp.bname = request.POST["bname"]
+        comp.industry = request.POST["industry"]
+        comp.ctype = request.POST["ctype"]
+        if request.FILES.get('img1') is not None:
+            if not comp.cimg == "images/images.png":
+                comp.cimg = request.FILES['img1']
+            else:
+                comp.cimg = request.FILES['img1']
+        else:
+            comp.cimg = "images/images.png"    
+
+
+
+        comp.save()
+        user.save()
+
+        return redirect('godash')        
+
+@login_required(login_url='regcomp')
+def view_users(request):
+    try:
+        cmp1 = company.objects.get(id=request.session["uid"])
+        user1 = User.objects.all()
+        context = {'user1': user1, 'cmp1': cmp1}
+        return render(request, 'app1/users.html', context)
+    except:
+        return redirect('godash')        
+
+@login_required(login_url='regcomp')
+def Currencies(request):
+    try:
+        cmp1 = company.objects.get(id=request.session["uid"])
+        context = {'cmp1': cmp1}
+        return render(request, 'app1/users.html', context)
+    except:
+        return redirect('godash')             

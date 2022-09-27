@@ -23,6 +23,21 @@
                                     <div class="col-md-8 mt-4 mb-4">
                                         <center>
                                             <h5 class="card-title"><h3>EDIT JOURNAL NO.{{ a.mj_no }}</h3></h5>
+                                            {% if a.status == 'DRAFT' %}
+                                            <p style="text-align: right;"> DRAFT</p>
+                                            <div style="text-align: right;" class="col-md-13">
+                                             <div class="form-check">
+                                                 <input class="form-check-input" name="status" type="checkbox"  id="track">
+                                                 <label class="form-check-label" for="track" >
+                                                   Publish
+                                                 </label>
+                                               </div>
+                                              
+                                         </div><br>
+                                             
+                                             {% elif a.status == 'PUBLISHED' %}
+                                             <button class="btn btn-success w-25" >PUBLISHED</button>
+                                             {% endif %}
                                         </center>
                                     </div><br>
                                     
