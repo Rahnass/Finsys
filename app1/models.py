@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 from locale import currency
 from django.db import models
 from django.contrib.auth.models import User
@@ -1130,7 +1131,7 @@ class mjournal(models.Model):
     contact2 = models.CharField(max_length=100,null=True)
     debit2 = models.CharField(max_length=100)
     credit2 = models.CharField(max_length=100)
-    attach = models.CharField(max_length=100,null=True) 
+    attach = models.FileField(upload_to="") 
     s_totaldeb = models.CharField(max_length=100)
     s_totalcre = models.CharField(max_length=100)
     total_deb = models.CharField(max_length=100)
@@ -1138,3 +1139,12 @@ class mjournal(models.Model):
     difference = models.CharField(max_length=100)
     status = models.CharField(max_length=100,default="DRAFT")
 
+
+class currencies(models.Model):
+    currencyid = models.AutoField(("CURRENCYID"), primary_key=True)
+    cid = models.ForeignKey(company, on_delete=models.CASCADE)
+    code = models.CharField(max_length=255, default='', blank=True)
+    name = models.CharField(max_length=255, default='', blank=True)
+    symbol = models.CharField(max_length=255, default='', blank=True)
+    decimal_places = models.CharField(max_length=255, default='', blank=True)
+    format = models.CharField(max_length=255, default='', blank=True)

@@ -30,7 +30,7 @@
                         </div>
                     </div>
 
-                    <form action="{% url 'create_mjournal' %}" method="post" class="needs-validation" novalidate>
+                    <form action="{% url 'create_mjournal' %}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
                         {% csrf_token %}
                         
                         <div class="row">

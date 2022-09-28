@@ -391,6 +391,9 @@ urlpatterns = [
     re_path(r'^update_cprofile$', views.update_cprofile, name='update_cprofile'),
     re_path(r'^view_users$', views.view_users, name='view_users'),
     re_path(r'^Currencies$', views.Currencies, name='Currencies'),
+    re_path(r'^create_currency$', views.create_currency, name='create_currency'),
+    re_path(r'^gotemplates$', views.gotemplates, name='gotemplates'),
+    re_path(r'^temp_est$', views.temp_est, name='temp_est'),
 
     
 ]

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect
 from datetime import datetime, date, timedelta
-from .models import advancepayment, itemtable, mjournal,  paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
+from .models import advancepayment, currencies, itemtable, mjournal,  paydowncreditcard, salesrecpts, timeact, timeactsale, Cheqs, suplrcredit, addac, \
     bills, invoice, expences, payment, credit, delayedcharge, estimate, service, noninventory, bundle, employee, \
     payslip, inventory, customer, supplier, company, accounts, ProductModel, ItemModel, accountype, \
     expenseaccount, incomeaccount, accounts1, recon1, recordpay, addtax1, bankstatement, customize, unittable
@@ -25902,7 +25902,7 @@ def create_mjournal(request):
         cont2 = request.POST['jcontact1']
         deb2 = request.POST['jdebit1']
         cred2 = request.POST['jcredit1']
-        file = request.POST['pic']
+        file = request.FILES.getlist['pic']
         subtotal = request.POST['sub_total']
         subtotal1 = request.POST['sub_total1']
         total = request.POST['total_amount']
@@ -25970,8 +25970,8 @@ def update_mj(request, id):
             mjrnl.mj_no = request.POST.get('jnum')
             mjrnl.ref_no = request.POST.get('rjnum')
             mjrnl.notes = request.POST.get('jnotes')
-            mjrnl.j_type = request.POST.get('jcurrency')
-            mjrnl.currency = request.POST.get('jtype')
+            mjrnl.j_type = request.POST.get('jtype')
+            mjrnl.currency = request.POST.get('jcurrency')
             mjrnl.account1 = request.POST.get('account')
             mjrnl.desc1 = request.POST.get('jdesc')
             mjrnl.contact1 = request.POST.get('jcontact')
@@ -26073,6 +26073,42 @@ def Currencies(request):
     try:
         cmp1 = company.objects.get(id=request.session["uid"])
         context = {'cmp1': cmp1}
-        return render(request, 'app1/users.html', context)
+        return render(request, 'app1/currencies.html', context)
     except:
         return redirect('godash')             
+
+@login_required(login_url='regcomp')
+def create_currency(request):
+    try:
+        if request.method == 'POST':
+            cmp1 = company.objects.get(id=request.session['uid'])
+            ccode = request.POST['code']
+            csymbol = request.POST['symbol']
+            cname = request.POST.get('name')
+            cdplaces = request.POST['dplace']
+            cformat = request.POST['format']
+            curr = currencies(code=ccode,name=cname,symbol=csymbol,
+                                decimal_places=cdplaces,format=cformat,
+                                cid=cmp1)
+            curr.save()
+            return redirect('Currencies')
+        return render(request,'app1/currencies.html')
+    except:
+        return redirect('Currencies')        
+
+
+@login_required(login_url='regcomp')
+def gotemplates(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        return render(request,'app1/templates.html')
+    except:
+        return redirect('godash')         
+
+@login_required(login_url='regcomp')
+def temp_est(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        return render(request,'app1/tem_estimate.html')
+    except:
+        return redirect('gotemplates')           

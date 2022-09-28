@@ -1,0 +1,578 @@
+{% extends 'app1/base.html' %}
+
+{% block body %}
+
+
+<div class="w-50">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card" id='cardfont' style="background-color: white; color: black; height: 1200px;">
+          <div class="card-header" style="margin-top: 50px;">
+            <div class="col-md-6">
+              <label class="col col-form-label">
+                <strong>{{ cmp1.cname }}</strong>
+                <br>
+                {{ cmp1.caddress }}
+                <br>
+                {{ cmp1.city }},{{ cmp1.state }}
+                <br>
+                {{ cmp1.pincode }}
+                <br>
+                {{ cmp1.cemail }}
+                <br>
+                {{ cmp1.phone }}
+                <br>
+                <br>
+                <h3 id='taxinvclassic' style="color: skyblue;">TAX INVOICE</h3>
+              </label>
+            </div>
+            <div class="row m-2">
+              <div class="col-md-4">
+                <h5 style="color: black;">Bill To:</h5>
+                ABC Company
+                <br>
+                Address
+                <br>
+                Details
+                <br>
+              </div>
+              <div class="col-md-4">
+
+              </div>
+              <div class="col-md-4">
+                <strong>Invoice
+                  No: </strong>1001
+                <br>
+                <strong>Invoice Date: </strong>12-09-2021
+                <br>
+                <strong>Due
+                  Date: </strong>12-09-2021
+                <br>
+                <strong>Terms: </strong>60
+              </div>
+            </div>
+          </div>
+          <div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="table-responsive">
+                  <table class="table table-sm">
+                    <thead id='theadclassic' style="background-color: skyblue;">
+                      <tr>
+                        <th></th>
+                        <th class="center" style="color: black;">PRODUCT / SERVICES</th>
+                        <th class="center" style="color: black;">HSN</th>
+                        <th class="center" style="color: black;">QTY</th>
+                        <th class="center" style="color: black;">PRICE</th>
+                        <th class="center" style="color: black;">TOTAL</th>
+                        <th class="center" style="color: black;">TAX (%)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>1</td>
+                        <td class="center" style="color: black;">Item</td>
+                        <td class="center" style="color: black;">hsn</td>
+                        <td class="center" style="color: black;">10</td>
+                        <td class="center" style="color: black;">220</td>
+                        <td class="center" style="color: black;">2200</td>
+                        <td class="center" style="color: black;">06 (%)</td>
+                      </tr>
+                      <tr>
+                        <td>2</td>
+                        <td class="center" style="color: black;">Item</td>
+                        <td class="center" style="color: black;">hsn</td>
+                        <td class="center" style="color: black;">1</td>
+                        <td class="center" style="color: black;">220</td>
+                        <td class="center" style="color: black;">220</td>
+                        <td class="center" style="color: black;">06 (%)</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="row" style='margin-bottom: 200px;'>
+              <div class="col-md-7"></div>
+              <div class="col-md-5">
+                <table class="table table-sm" style="margin-bottom: 300px;">
+                  <tbody>
+                    <tr>
+                      <td class="center text-dark"><strong>Subtotal</strong></td>
+                      <td class="center text-dark">2420</td>
+                    </tr>
+                    <tr>
+                      <td class="center text-dark"><strong>Tax Amount</strong></td>
+                      <td class="center text-dark">145.2</td>
+                    </tr>
+                    <tr>
+                      <td class="center text-dark"><strong>Total</strong></td>
+                      <td class="center text-dark">
+                        2565.2
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="bg-gray" style="height: 2px;">
+            </div>
+            <span>
+              <center>Invoice was created on a computer and is valid without the signature and seal.</center>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="invoice">
+      <div class="container">
+        <div class="card" id='cardfont1' style="background-color: white; color: black; display: none; height: 1000px">
+          <div class="card-header" style="margin-top: 50px;">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col col-form-label">
+                  <strong>{{ cmp1.cname }}</strong>
+                  <br>
+                  {{ cmp1.caddress }}
+                  <br>
+                  {{ cmp1.city }},{{ cmp1.state }}
+                  <br>
+                  {{ cmp1.pincode }}
+                  <br>
+                  {{ cmp1.cemail }}
+                  <br>
+                  {{ cmp1.phone }}
+                  <br>
+                  <br>
+                </label>
+              </div>
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
+                <h3 id="taxinvmodern" style="color: black;">TAX INVOICE</h3>
+              </div>
+            </div>
+            <div class="row m-2">
+              <div class="col-md-4">
+
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-md-12">
+                    <h5 id='theadmodern3' style="color: black; background-color: #91bbff; padding-left: 20px;">Bill To:</h5>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12 pt-2 pl-5 pr-5">
+                    ABC Company
+                    <br>
+                    Address
+                    <br>
+                    Details
+                    <br>
+                  </div>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+          </div>
+          <div class="m-4">
+            <div class="table-responsive">
+              <table class="table table-sm">
+                <thead id='theadmodern1' style="background-color: #91bbff;">
+                  <tr>
+                    <th style='color: black;'>INVOICE NO</th>
+                    <th style='color: black;'>INVOICE DATE</th>
+                    <th style='color: black;'>DUE DATE</th>
+                    <th style='color: black;'>TERMS</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style='color: black;'>1001</td>
+                    <td style='color: black;'>14-12-2021</td>
+                    <td style='color: black;'>14-12-2021</td>
+                    <td style='color: black;'>60</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="margin-bottom: 300px">
+            <div class="m-4">
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead id='theadmodern2' style="background-color: #91bbff;">
+                    <tr>
+                      <th></th>
+                      <th class="center" style="color: black;">PRODUCT / SERVICES</th>
+                      <th class="center" style="color: black;">HSN</th>
+                      <th class="center" style="color: black;">QTY</th>
+                      <th class="center" style="color: black;">PRICE</th>
+                      <th class="center" style="color: black;">TOTAL</th>
+                      <th class="center" style="color: black;">TAX (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td class="center" style="color: black;">Item</td>
+                      <td class="center" style="color: black;">hsn</td>
+                      <td class="center" style="color: black;">10</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">2200</td>
+                      <td class="center" style="color: black;">06 (%)</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td class="center" style="color: black;">Item</td>
+                      <td class="center" style="color: black;">hsn</td>
+                      <td class="center" style="color: black;">1</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">06 (%)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="row" style="margin-bottom: 200px;">
+              <div class="col-md-7"></div>
+              <div class="col-md-5">
+                <table class="table table-sm mb-5">
+                  <tbody>
+                    <tr>
+                      <td class="center" style='color: black;'><strong>SUBTOTAL</strong></td>
+                      <td class="center" style='color: black;'>2420</td>
+                    </tr>
+                    <tr>
+                      <td class="center" style='color: black;'><strong>TAX AMOUNT</strong></td>
+                      <td class="center" style='color: black;'>145.2</td>
+                    </tr>
+                    <tr>
+                      <td class="center" style='color: black;'><strong>TOTAL</strong></td>
+                      <td class="center" style='color: black;'>2565.2
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="bg-gray" style="height: 2px;">
+            </div>
+            <span>
+              <center>Invoice was created on a computer and is valid without the signature and seal.</center>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="invoice">
+      <div class="container">
+        <div class="card" id='cardfont2' style="background-color: white; color: black; display: none; height: 1000px">
+          <div class="card-header" style="margin-top: 50px;">
+            <div class="col-md-6">
+              <label class="col col-form-label">
+                <strong>{{ cmp1.cname }}</strong>
+                <br>
+                {{ cmp1.caddress }}
+                <br>
+                {{ cmp1.city }},{{ cmp1.state }}
+                <br>
+                {{ cmp1.pincode }}
+                <br>
+                {{ cmp1.cemail }}
+                <br>
+                {{ cmp1.phone }}
+                <br>
+                <br>
+                <h3 id="taxinvfresh">TAX INVOICE</h3>
+              </label>
+            </div>
+            <div class="row m-2">
+              <div class="col-md-4">
+                <h5 style="color: black;">Bill To:</h5>
+                <strong>ABC Company</strong>
+                <br>
+                Address
+                <br>
+                Details
+                <br>
+              </div>
+              <div class="col-md-4">
+
+              </div>
+              <div class="col-md-4">
+                <div class="row mt-1">
+                  <div id='theadfresh1' class="col-md-12" style='background-color: #91bbff; color: black;'>
+                    <strong>Invoice
+                      No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>1001
+                  </div>
+                </div>
+                <div class="row mt-1">
+                  <div id='theadfresh2' class="col-md-12" style='background-color: #91bbff; color: black;'>
+                    <strong>Invoice Date&nbsp;&nbsp;&nbsp;: </strong>14-12-2021
+                  </div>
+                </div>
+                <div class="row mt-1">
+                  <div id='theadfresh3' class="col-md-12" style='background-color: #91bbff; color: black;'>
+                    <strong>Due
+                      Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>14-12-2021
+                  </div>
+                </div>
+                <div class="row mt-1">
+                  <div id='theadfresh4' class="col-md-12" style='background-color: #91bbff; color: black;'>
+                    <strong>Terms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>60
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-bottom: 300px">
+            <div class="m-4">
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead id='theadfresh5' style='background-color: #91bbff; color: black;'>
+                    <tr>
+                      <th></th>
+                      <th class="center" style="color: black;">PRODUCT / SERVICES</th>
+                      <th class="center" style="color: black;">HSN</th>
+                      <th class="center" style="color: black;">QTY</th>
+                      <th class="center" style="color: black;">PRICE</th>
+                      <th class="center" style="color: black;">TOTAL</th>
+                      <th class="center" style="color: black;">TAX (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td class="center" style="color: black;">Item</td>
+                      <td class="center" style="color: black;">hsn</td>
+                      <td class="center" style="color: black;">10</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">2200</td>
+                      <td class="center" style="color: black;">06 (%)</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td class="center" style="color: black;">Item</td>
+                      <td class="center" style="color: black;">hsn</td>
+                      <td class="center" style="color: black;">1</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">06 (%)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-7"></div>
+              <div class="col-md-5">
+                <table class="table table-sm mb-5">
+                  <tbody>
+                    <tr>
+                      <td class="center text-dark"><strong>Subtotal</strong></td>
+                      <td class="center text-dark">2420</td>
+                    </tr>
+                    <tr>
+                      <td class="center text-dark"><strong>Tax Amount</strong></td>
+                      <td class="center text-dark">145.2</td>
+                    </tr>
+                    <tr>
+                      <td class="center text-dark"><strong>Total</strong></td>
+                      <td class="center text-dark">
+                        <strong>2565.2</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="bg-gray" style="height: 2px;"></div>
+            <span>
+              <center>Invoice was created on a computer and is valid without the signature and seal.</center>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="invoice">
+      <div class="container">
+        <div class="card" id='cardfont3' style="background-color: white; color: black; display: none;">
+          <div class="card-header" style="margin-top: 50px;">
+            <div class="row">
+              <div class="col-md-6">
+                <label class="col col-form-label">
+                  <strong>{{ cmp1.cname }}</strong>
+                  <br>
+                  {{ cmp1.caddress }}
+                  <br>
+                  {{ cmp1.city }},{{ cmp1.state }}
+                  <br>
+                  {{ cmp1.pincode }}
+                  <br>
+                  {{ cmp1.cemail }}
+                  <br>
+                  {{ cmp1.phone }}
+                  <br>
+                  <br>
+                </label>
+              </div>
+              <div class="col-md-3">
+              </div>
+              <div class="col-md-3">
+                <h4 style="color: black;" id="taxinvfriendly">TAX INVOICE</h4>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div id='theadfriendly5' style='background-color: #91bbff; height:1px; width: 100%;'></div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-3 mt-2">
+                <h5 style="color: black;">Bill To:</h5>
+                <strong>ABC Company</strong>
+                <br>
+                Address
+                <br>
+                Details
+                <br>
+              </div>
+              <div class="col-md-3 mt-2">
+                <strong>Invoice
+                  No&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>1001
+                <br>
+                <strong>Invoice Date&nbsp;&nbsp;&nbsp;: </strong>14-12-2021
+                <br>
+                <strong>Due
+                  Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>14-12-2021
+                <br>
+                <strong>Terms&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: </strong>60
+              </div>
+              <div id='theadfriendly1' class="col-md-2" style='background-color: #9cbcf0;'>
+                <div class="row">
+                  <div class="col-md-12 mt-5">
+                    <h6 style="text-align: center; color: black;">Date</h6>
+                  </div>
+                  <div class="col-md-12" style="text-align: center; color: white; color: black;">
+                    14-12-2021
+                  </div>
+                </div>
+              </div>
+              <div id='theadfriendly2' class="col-md-2" style='background-color: #4185f2;'>
+                <div class="row">
+                  <div class="col-md-12 mt-5" style="font-weight: 100px;">
+                    <h6 style="text-align: center; color: black;">Please Pay</h6>
+                  </div>
+                  <div class="col-md-12" style="text-align: center; color: white; color: black;">
+                    2420.5
+                  </div>
+                </div>
+              </div>
+              <div id='theadfriendly3' class="col-md-2" style='background-color: #9cbcf0;'>
+                <div class="row">
+                  <div class="col-md-12 mt-5">
+                    <h6 style="text-align: center; color: black;">Due Date</h6>
+                  </div>
+                  <div class="col-md-12" style="text-align: center; color: white; color: black;">
+                    14-12-2021
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="margin-bottom: 300px">
+            <div class="m-4">
+              <div class="table-responsive">
+                <table class="table table-sm">
+                  <thead id='theadfriendly4'>
+                    <tr>
+                      <th></th>
+                      <th class="center" style="color: black;">PRODUCT / SERVICES</th>
+                      <th class="center" style="color: black;">HSN</th>
+                      <th class="center" style="color: black;">QTY</th>
+                      <th class="center" style="color: black;">PRICE</th>
+                      <th class="center" style="color: black;">TOTAL</th>
+                      <th class="center" style="color: black; width: 200px;">TAX (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td class="center" style="color: black;">Item</td>
+                      <td class="center" style="color: black;">hsn</td>
+                      <td class="center" style="color: black;">10</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">2200</td>
+                      <td class="center" style="color: black;">06 (%)</td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td class="center" style="color: black;">Item</td>
+                      <td class="center" style="color: black;">hsn</td>
+                      <td class="center" style="color: black;">1</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">220</td>
+                      <td class="center" style="color: black;">06 (%)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-7"></div>
+              <div class="col-md-5">
+                <table class="table table-sm mb-5">
+                  <tbody>
+                    <tr>
+                      <td class="center text-dark"><strong>Subtotal</strong></td>
+                      <td class="center text-dark">2420</td>
+                    </tr>
+                    <tr>
+                      <td class="center text-dark"><strong>Tax Amount</strong></td>
+                      <td class="center text-dark">145.2</td>
+                    </tr>
+                    <tr>
+                      <td class="center text-dark"><strong>Total</strong></td>
+                      <td class="center text-dark">
+                        <strong>2565.2</strong>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="bg-gray" style="height: 2px;">
+            </div>
+            <span>
+              <center>Invoice was created on a computer and is valid without the signature and seal.</center>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
