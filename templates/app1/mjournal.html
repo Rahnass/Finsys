@@ -55,7 +55,7 @@
                                style="height: 40px; font-size: 15px; color: white;" >All</a>
                             <a class="dropdown-item" href="{% url 'mjdraft' %}"
                                style="height: 40px; font-size: 15px; color: white;">Draft</a>
-                            <a class="dropdown-item" href="#"
+                            <a class="dropdown-item" href="{% url 'mjpublish' %}"
                                style="height: 40px; font-size: 15px; color: white;">Published</a>
                             
                     </div> 
@@ -113,7 +113,13 @@
                                 <td>{{ a.date }}</td>
                                 <td>{{ a.mj_no }}</td>
                                 <td>{{ a.ref_no }}</td>
-                                <td>{{ a.status }}</td>
+                                <td >
+                                    {% if a.status == 'publish' %}
+                                   PUBLISHED
+                                    {% else %}
+                                    DRAFT
+                                    {% endif %}
+                                </td>
                                 <td>{{ a.notes }}</td>
                                 <td>{{ a.debit1 }}</td>
                                 <td>{{ a.attach }}</td>

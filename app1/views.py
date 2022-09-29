@@ -25694,6 +25694,10 @@ def isales(request):
     except:
         return redirect('goitem')
 
+
+
+
+
 def iordername(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
@@ -25720,6 +25724,8 @@ def iod_rate(request):
         return render(request, 'app1/itemmodule.html',context)  
     except:
         return redirect('goitem')
+
+
 
 def iod_import(request):
     try:
@@ -25902,7 +25908,7 @@ def create_mjournal(request):
         cont2 = request.POST['jcontact1']
         deb2 = request.POST['jdebit1']
         cred2 = request.POST['jcredit1']
-        file = request.FILES.getlist['pic']
+        file = request.FILES['pic']
         subtotal = request.POST['sub_total']
         subtotal1 = request.POST['sub_total1']
         total = request.POST['total_amount']
@@ -25988,6 +25994,7 @@ def update_mj(request, id):
             mjrnl.total_deb = request.POST.get('total_amount')
             mjrnl.total_cre = request.POST.get('total_amount1')
             mjrnl.difference = request.POST.get('differ')
+            mjrnl.status = request.POST.get('status')
             mjrnl.save()
             return redirect('gomjoural')
         return render(request,'app1/view_mj.html',{'cmp1': cmp1})    
@@ -26072,10 +26079,20 @@ def view_users(request):
 def Currencies(request):
     try:
         cmp1 = company.objects.get(id=request.session["uid"])
-        context = {'cmp1': cmp1}
+        curr = currencies.objects.filter(cid=cmp1)
+        context = {'cmp1': cmp1,'curr':curr}
         return render(request, 'app1/currencies.html', context)
     except:
-        return redirect('godash')             
+        return redirect('godash')        
+
+@login_required(login_url='regcomp')
+def addcurrencies(request):
+    try:
+        cmp1 = company.objects.get(id=request.session["uid"])
+        context = {'cmp1': cmp1}
+        return render(request, 'app1/add_currency.html', context)
+    except:
+        return redirect('Currencies')                   
 
 @login_required(login_url='regcomp')
 def create_currency(request):
@@ -26098,6 +26115,38 @@ def create_currency(request):
 
 
 @login_required(login_url='regcomp')
+def update_currency(request, id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        if request.method == 'POST':
+            curr = currencies.objects.get(currencyid=id)
+            curr.code = request.POST.get('code')
+            curr.symbol = request.POST.get('symbol')
+            curr.name = request.POST.get('name')
+            curr.decimal_places = request.POST.get('dplace')
+            curr.format = request.POST.get('format')
+            
+            curr.save()
+            return redirect('Currencies')
+        return render(request,'app1/currencies.html',{'cmp1': cmp1})    
+    except:
+        return redirect('Currencies')   
+
+@login_required(login_url='regcomp')
+def delete_currency(request, id):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        try:
+            sl = currencies.objects.get(currencyid=id)
+            sl.delete()
+            return redirect('Currencies',{'cmp1': cmp1})
+        except:
+            return redirect('Currencies')
+    except:
+        return redirect('Currencies')              
+
+
+@login_required(login_url='regcomp')
 def gotemplates(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
@@ -26106,9 +26155,36 @@ def gotemplates(request):
         return redirect('godash')         
 
 @login_required(login_url='regcomp')
+def temp_inv(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        return render(request,'app1/tem_invoice.html')
+    except:
+        return redirect('gotemplates')       
+
+@login_required(login_url='regcomp')
+def edit_currencies(request,id):   
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        curr = currencies.objects.filter(currencyid=id)
+        context = {'curr':curr,'cmp1': cmp1}
+        return render(request,'app1/edit_currency.html',context) 
+    except:
+        return redirect('Currencies')            
+
+@login_required(login_url='regcomp')
 def temp_est(request):
     try:
         cmp1 = company.objects.get(id=request.session['uid'])
-        return render(request,'app1/tem_estimate.html')
+        return render(request,'app1/tem_estimate.html',{'cmp1':cmp1})
     except:
-        return redirect('gotemplates')           
+        return redirect('gotemplates')         
+
+
+def mjpublish(request):
+    try:
+        cmp1 = company.objects.get(id=request.session['uid'])
+        mj = mjournal.objects.filter(status='publish',cid=cmp1)
+        return render(request,'app1/mjournal.html',{'mj':mj})
+    except:
+        return redirect('gomjoural')            

@@ -12,10 +12,14 @@
             }
         </style>
         {% for a in mjrnl %}
+        <form action="{% url 'update_mj' a.id %}" method="post" class="needs-validation" novalidate>
+            {% csrf_token %}
         <div class="page-content">
             <div class="card radius-15">
                 <div class="card-body">
                     <div class="row">
+           
+                            
                         <div class="col-12 col-lg-12 col-xl-12">
                             <div class="card" style="background-color: #2a4964;">
                                 <div class="row no-gutters">
@@ -27,27 +31,29 @@
                                             <p style="text-align: right;"> DRAFT</p>
                                             <div style="text-align: right;" class="col-md-13">
                                              <div class="form-check">
-                                                 <input class="form-check-input" name="status" type="checkbox"  id="track">
+                                                 <input class="form-check-input" name="status" type="checkbox" value="publish"  id="track">
                                                  <label class="form-check-label" for="track" >
                                                    Publish
                                                  </label>
                                                </div>
+                                            </div>
                                               
                                          </div><br>
                                              
-                                             {% elif a.status == 'PUBLISHED' %}
-                                             <button class="btn btn-success w-25" >PUBLISHED</button>
+                                             {% else %}
+                                             <p class="btn btn-success w-25" >PUBLISHED</p>
                                              {% endif %}
                                         </center>
                                     </div><br>
+
+                                   
+                                    
                                     
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <form action="{% url 'update_mj' a.id %}" method="post" class="needs-validation" novalidate>
-                        {% csrf_token %}
-                        
+   
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="row">

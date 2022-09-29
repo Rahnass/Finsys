@@ -384,6 +384,7 @@ urlpatterns = [
     re_path(r'^update_mj/(?P<id>\d+)$', views.update_mj, name='update_mj'),
     re_path(r'^deletemj/(?P<id>\d+)$', views.deletemj, name='deletemj'),
     re_path(r'^mjdraft$', views.mjdraft, name='mjdraft'),
+    re_path(r'^mjpublish$', views.mjpublish, name='mjpublish'),
 
     #   settings
 
@@ -393,7 +394,13 @@ urlpatterns = [
     re_path(r'^Currencies$', views.Currencies, name='Currencies'),
     re_path(r'^create_currency$', views.create_currency, name='create_currency'),
     re_path(r'^gotemplates$', views.gotemplates, name='gotemplates'),
+    re_path(r'^temp_inv$', views.temp_inv, name='temp_inv'),
+    re_path(r'^addcurrencies$', views.addcurrencies, name='addcurrencies'),
+    re_path(r'^edit_currencies/(?P<id>\d+)$', views.edit_currencies, name='edit_currencies'),
+    re_path(r'^update_currency/(?P<id>\d+)$', views.update_currency, name='update_currency'),
+    re_path(r'^delete_currency/(?P<id>\d+)$', views.delete_currency, name='delete_currency'),
     re_path(r'^temp_est$', views.temp_est, name='temp_est'),
+    
 
     
 ]

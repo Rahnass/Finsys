@@ -60,12 +60,7 @@
                                     style="color: white; font-size: 25px;" onclick="printDiv()">
                                     <i class='bx bxs-file-pdf'></i>
                                 </a>
-                                 <input type="file" id="file" style="display:none;">
-                                 <a  class="dropdown-item" value="Upload" id="button" name="button"
-                                 style="color: white; font-size: 25px;" onclick="thisFileUpload();">
-                                 <i class='bx bxs-file-plus'></i></a>
-                                 
-                                 
+                                
                                     
                                   </div>
                                 </div>
@@ -92,7 +87,12 @@
                     
                                              <div class="pcs-template-body">
                                                
+                                                {% if a.status == 'publish' %}
                                                 <p class="btn btn-outline-success" >PUBLISHED</p>
+                                                 {% else %}
+                                                <p class="btn btn-outline-dark"> DRAFT</p>
+                                                 {% endif %}
+                                                
                                              
                                                 
                                                
