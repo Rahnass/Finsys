@@ -1,5 +1,4 @@
 from distutils.command.upload import upload
-from locale import currency
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
@@ -1085,6 +1084,10 @@ class customize(models.Model):
     fonts = models.CharField(max_length=255, default='', blank=True)
     lastedited = models.CharField(default=timezone.now, max_length=255, blank=True)
     selected = models.CharField(max_length=255, default='', blank=True)
+
+
+
+# Rahanas -------------
 
 class itemtable(models.Model):
     cid = models.ForeignKey(company, on_delete=models.CASCADE)

@@ -351,7 +351,11 @@ urlpatterns = [
     re_path(r'^editstyle/updatestyle/(?P<customizeid>\d+)$',views.updatestyle,name='updatestyle'),
     re_path(r'^deletestyle/(?P<customizeid>\d+)$',views.deletestyle,name='deletestyle'),
 
-    #....
+
+
+    # Rahanas ----------
+
+    # item
     re_path(r'^add_item$', views.add_item, name='add_item'),
     re_path(r'^add_unit$', views.add_unit, name='add_unit'),
     re_path(r'^goitem$', views.goitem, name='goitem'),
@@ -374,7 +378,6 @@ urlpatterns = [
     re_path(r'^iod_import$', views.iod_import, name='iod_import'),
     re_path(r'^iod_export$', views.iod_export, name='iod_export'),
 
-
     #  manual journal
     re_path(r'^gomjoural$', views.gomjoural, name='gomjoural'),
     re_path(r'^add_mjournal$', views.add_mjournal, name='add_mjournal'),
@@ -387,7 +390,6 @@ urlpatterns = [
     re_path(r'^mjpublish$', views.mjpublish, name='mjpublish'),
 
     #   settings
-
     re_path(r'^C_profile$', views.C_profile, name='C_profile'),
     re_path(r'^update_cprofile$', views.update_cprofile, name='update_cprofile'),
     re_path(r'^view_users$', views.view_users, name='view_users'),
